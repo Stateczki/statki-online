@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import LoggingInterface from './loggingInterface';
-import RegistrationInterface from './registrationInterface';
+import LoggingInterface from './components/loggingInterface';
+import RegistrationInterface from './components/registrationInterface';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

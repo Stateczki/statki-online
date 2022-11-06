@@ -9,21 +9,23 @@ export default function RegistrationInterface() {
             </div>
             <form className="mt-8 space-y-6" action="#" method="POST">
               <input type="hidden" name="remember" defaultValue="true" />
-              <div className="-space-y-px rounded-md shadow-sm">
-              <div>
+              <div className="rounded-md shadow-sm">
+              <div className="mb-12">
+                  <h1>Username</h1>
                   <label className="sr-only">
-                    User name
+                    Username
                   </label>
                   <input
                     id="user-name"
                     name="user-name"
                     type="text"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="User name"
                   />
                 </div>
-                <div>
+                <div className="mb-12">
+                  <h1>Email</h1>
                   <label htmlFor="email-address" className="sr-only">
                     Email address
                   </label>
@@ -33,11 +35,12 @@ export default function RegistrationInterface() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2 placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="Email address"
                   />
                 </div>
-                <div>
+                <div className="mb-2">
+                  <h1>Password</h1>
                   <label htmlFor="password" className="sr-only">
                     Password
                   </label>
@@ -47,13 +50,14 @@ export default function RegistrationInterface() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2  placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="Password"
                   />
                 </div>
-                <div>
+                <div className="mb-12">
+                  <h1>Confirm password</h1>
                   <label htmlFor="password" className="sr-only">
-                    Re-type password
+                    Confirm password
                   </label>
                   <input
                     id="password"
@@ -61,8 +65,8 @@ export default function RegistrationInterface() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2  placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
-                    placeholder="Re-type password"
+                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
+                    placeholder="Confirm password"
                   />
                 </div>
               </div>
