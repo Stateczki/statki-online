@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './components/app';
+import LoggingInterface from './components/loggingInterface';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import LoggingInterface from './components/loggingInterface';
-import RegistrationInterface from './components/registrationInterface';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-      <RegistrationInterface />
+    <App />
   </React.StrictMode>
 );
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

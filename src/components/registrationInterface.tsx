@@ -10,7 +10,7 @@ export default function RegistrationInterface() {
             <form className="mt-8 space-y-6" action="#" method="POST">
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="rounded-md shadow-sm">
-              <div className="mb-12">
+              <div className="mb-4">
                   <h1>Username</h1>
                   <label className="sr-only">
                     Username
@@ -20,11 +20,11 @@ export default function RegistrationInterface() {
                     name="user-name"
                     type="text"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
-                    placeholder="User name"
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
+                    placeholder="Username"
                   />
                 </div>
-                <div className="mb-12">
+                <div className="mb-4">
                   <h1>Email</h1>
                   <label htmlFor="email-address" className="sr-only">
                     Email address
@@ -35,11 +35,11 @@ export default function RegistrationInterface() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="Email address"
                   />
                 </div>
-                <div className="mb-2">
+                <div className="mb-4">
                   <h1>Password</h1>
                   <label htmlFor="password" className="sr-only">
                     Password
@@ -50,7 +50,7 @@ export default function RegistrationInterface() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="relative block w-full appearance-none border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="Password"
                   />
                 </div>
@@ -65,7 +65,7 @@ export default function RegistrationInterface() {
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
+                    className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2  placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
                     placeholder="Confirm password"
                   />
                 </div>
@@ -74,7 +74,7 @@ export default function RegistrationInterface() {
               <div>
                 <button
                   type="submit"
-                  className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+                  className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ease-in delay-250"
                 >
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   </span>

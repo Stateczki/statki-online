@@ -1,3 +1,5 @@
+import { Link, Router } from "react-router-dom";
+
 export default function LoggingInterface() {
   return (
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -8,9 +10,9 @@ export default function LoggingInterface() {
             </h2>
             <p className="mt-2 text-center text-s">
               Or{' '}
-              <a href="#" className="font-medium ">
+              <Link to="register" className="font-medium ">
                 register here now
-              </a>
+              </Link>
             </p>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
@@ -69,7 +71,7 @@ export default function LoggingInterface() {
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+                className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ease-in delay-250"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 </span>
