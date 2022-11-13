@@ -220,6 +220,81 @@
         },
         "description": "Create a new user."
       }
+    },
+    "/login": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "User found. Logging in..."
+          },
+          "404": {
+            "description": "Username or password invalid, user not found."
+          }
+        },
+        "operationId": "get-login",
+        "description": "Log into the game.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {},
+        "operationId": "get-register"
+      },
+      "post": {
+        "summary": "",
+        "operationId": "post-register",
+        "responses": {
+          "200": {
+            "description": "You have been registered."
+          },
+          "302": {
+            "description": "This email or username are already taken."
+          }
+        },
+        "description": "Register user.",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
