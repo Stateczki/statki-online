@@ -10,7 +10,7 @@ export default function LoggingInterface() {
             </h2>
             <p className="mt-2 text-center text-s">
               Or{' '}
-              <Link to="register" className="font-medium ">
+              <Link to="register" className="font-medium links">
                 register here now
               </Link>
             </p>
@@ -28,7 +28,7 @@ export default function LoggingInterface() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
                   placeholder="Email address"
                 />
               </div>
@@ -42,7 +42,7 @@ export default function LoggingInterface() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2  placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
                   placeholder="Password"
                 />
               </div>
@@ -62,7 +62,7 @@ export default function LoggingInterface() {
               </div>
 
               <div className="text-sm">
-                <a href="#" className="font-medium  ">
+                <a href="#" className="font-medium links ">
                   Forgot your password?
                 </a>
               </div>
@@ -71,7 +71,7 @@ export default function LoggingInterface() {
             <div>
               <button
                 type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ease-in delay-250"
+                className="group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 </span>

@@ -27,20 +27,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*             CUSTOM LINKS AND BUTTONS                 */
 input[type=text],input[type=email],input[type=password] {
   background-color: var(--primary);
 }
 
-button[type=submit] {
+button[type=submit]{
   background-color: var(--complementary);
 }
-button[type=submit]:hover {
+button[type=button]{
+  box-shadow: inset 0 0 1px #000000;
+  background-color: #062337;
+}
+button[type=submit]:hover, button[type=button]:hover {
   background-color: var(--secondary);
   color: var(--primary);
 }
-a {
+.links {
   color: var(--complementary);
 }
-a:hover {
+.links:hover {
   color: var(--secondary);
 }
