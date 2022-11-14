@@ -15,11 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from game import views as game_views
+from django.contrib.auth import views as auth_views
 # from game.views import ho
 # from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('game.urls')),
+    path('', game_views.home, name='statki-home'),
+    path('register/', game_views.register, name='register'),
+    # path('login/', game_views.login, name='login'),
+    path('login/', auth_views.LoginView.as_view(template_name='loggingInterface.tsx'), name='login'),
+    # path('logout/', auth_views.LogoutView.as_view(template_name='loggingInterface.tsx'), name='logout'),
 ]
