@@ -23,8 +23,13 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', game_views.home, name='statki-home'),
-    path('register/', game_views.register, name='register'),
-    # path('login/', game_views.login, name='login'),
+    path('register/', game_views.register.as_view(), name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='loggingInterface.tsx'), name='login'),
+    path('lobby', game_views.lobby.as_view(), name='lobby'),
+    path('play', game_views.play.as_view(), name='play'),
+    path('game<int:gameID>', game_views.game.as_view(), name='game'),
+    path('<str:username>/homepage', game_views.home.as_view(), name='user-homepage'),
+    path('<str:username>/profile', game_views.home.as_view(), name='user-profile'),
+    path('<str:username>/stats', game_views.stats.as_view(), name='user-stats')
     # path('logout/', auth_views.LogoutView.as_view(template_name='loggingInterface.tsx'), name='logout'),
 ]
