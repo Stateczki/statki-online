@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', game_views.home, name='statki-home'),
+    path('', game_views.home, name='index'),
     # path('register/', game_views.register.as_view(), name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='loggingInterface.tsx'), name='login'),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),

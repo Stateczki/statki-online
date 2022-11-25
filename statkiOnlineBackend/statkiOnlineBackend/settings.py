@@ -57,7 +57,7 @@ ROOT_URLCONF = 'statkiOnlineBackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(REAL_BASE_DIR, 'statki-online-frontend','src','components')],
+        'DIRS': [os.path.join(REAL_BASE_DIR, 'statki-online-frontend/build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
