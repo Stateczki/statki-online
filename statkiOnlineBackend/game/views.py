@@ -1,15 +1,29 @@
+from imaplib import _Authenticator
+from multiprocessing import AuthenticationError
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-# from .forms import UserRegisterForm
+from .forms import NewUserForm, LoginForm
 from django.contrib import messages
 
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
 
+import logging, traceback
+logger = logging.getLogger('django')
 
+@csrf_exempt
 def home(request):
     return render(request,'index.html')
 
+def csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})
+
+def ping(request):
+    return JsonResponse({'result': 'OK'})
 
 @login_required
 def room(request, room_name):
@@ -21,24 +35,41 @@ def profile(request):
     pass
 
 
-def stats(LoginRequiredMixin,):
+def stats(LoginRequiredMixin):
     pass
 
-# def register(request):
-#     return render(request,'registrationInterface.tsx')
+@csrf_exempt
+def register_request(request):
+    if request.method =="POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            messages.success(request, "Registraton successful. ")
+            return redirect("login-form")
+        messages.error(request,"Nieprawidlowe lol")
+    form = NewUserForm()
+    return render(request, "index.html",context={"register_form":form})
+    
+@csrf_exempt
+def login_request(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            login = form.cleaned_data.get('login')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, login=login, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {login}")
+                return redirect("user-homepage")
+            else:
+                messages.error(request, "Nie ma takiego usera")
+        else:
+            messages.error(request, "Nieprawidlowe dane")
+    form = LoginForm()
+    return render(request, "index.html", {"login_form":form})
 
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Your account has been created! You are now able to log in')
-#             return redirect('login')
-#     else:
-#         form = UserRegisterForm()
-#     return render(request, 'registrationInterface.tsx', {'form': form})
-
-def login(request):
-    return render(request,'loggingInterface.tsx')
+    
+    
+@csrf_exempt
+def userHomepage(request):
+    return render(request,'index.html')

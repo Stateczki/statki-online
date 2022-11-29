@@ -1,9 +1,25 @@
 import { Link, Router } from "react-router-dom";
+import React, { Component } from 'react';
 
 export default function LoggingInterface() {
+  const API_HOST = 'http://localhost:8000';
+  let _csrfToken: any = null;
+
+  async function getCsrfToken() {
+    if (_csrfToken === null) {
+      const response = await fetch(`${API_HOST}/csrf/`, { credentials: 'include' });
+      const data = await response.json();
+      _csrfToken = data.csrfToken;
+      console.log(_csrfToken)
+    }
+    return _csrfToken;
+  }
+  _csrfToken = getCsrfToken();
+  console.log(_csrfToken)
   return (
+    
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-8"> 
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight ">
               Sign in to your account
@@ -11,25 +27,24 @@ export default function LoggingInterface() {
             <p className="mt-2 text-center text-s">
               Or{' '}
               <Link to="register" className="font-medium links">
-                register here now
+                register here now 
               </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="log_user" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
+          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="/login/" method="POST"> 
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
+                <label htmlFor="login" className="sr-only">
+                  username
                 </label>
                 <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="login"
+                  name="login"
+                  type="text"
+                  autoComplete="login"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Username"
                 />
               </div>
               <div>
@@ -48,7 +63,8 @@ export default function LoggingInterface() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember-me"
@@ -66,7 +82,7 @@ export default function LoggingInterface() {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <button
@@ -78,7 +94,7 @@ export default function LoggingInterface() {
                 Sign in
               </button>
             </div>
-          </form>
+          </form> }
         </div>
       </div>
   )

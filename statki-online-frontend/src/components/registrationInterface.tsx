@@ -1,4 +1,5 @@
 export default function RegistrationInterface() {
+  
     return (
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
           <div className="w-full max-w-md space-y-8">
@@ -7,8 +8,7 @@ export default function RegistrationInterface() {
                 Register your account
               </h2>
             </div>
-            <form className="mt-8 space-y-6" action="#" method="POST">
-              <input type="hidden" name="remember" defaultValue="true" />
+            <form className="mt-8 space-y-6" action="/register/" method="POST">
               <div className="rounded-md shadow-sm">
               <div className="mb-4">
                   <h1>Username</h1>
@@ -16,8 +16,8 @@ export default function RegistrationInterface() {
                     Username
                   </label>
                   <input
-                    id="user-name"
-                    name="user-name"
+                    id="username"
+                    name="username"
                     type="text"
                     required
                     className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 placeholder-gray-500 text-black focus:z-10 focus:outline-none  sm:text-sm"
@@ -46,7 +46,7 @@ export default function RegistrationInterface() {
                   </label>
                   <input
                     id="password"
-                    name="password"
+                    name="password1"
                     type="password"
                     autoComplete="current-password"
                     required
@@ -61,7 +61,7 @@ export default function RegistrationInterface() {
                   </label>
                   <input
                     id="password"
-                    name="password"
+                    name="password2"
                     type="password"
                     autoComplete="current-password"
                     required
