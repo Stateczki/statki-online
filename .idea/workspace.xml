@@ -41,6 +41,11 @@
     &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Dell\\OneDrive\\Dokumenty\\GitHub\\statki-online\\statki-online-frontend\\node_modules\\typescript\\lib&quot;
   }
 }</component>
+  <component name="Push.Settings">
+    <force-push-targets>
+      <force-push-target remote-path="origin" branch="main" />
+    </force-push-targets>
+  </component>
   <component name="RunManager" selected="Python.manage">
     <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="statki-online" />
