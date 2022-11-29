@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+from .models import User
 
 import logging, traceback
 
@@ -48,17 +49,19 @@ def login_request(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            login = form.cleaned_data.get('login')
+            username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(request, login=login, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {login}")
                 return redirect("user-homepage")
             else:
                 messages.error(request, "Nie ma takiego usera")
+                redirect('login-form')
         else:
             messages.error(request, "Nieprawidlowe dane")
+            redirect('login-form')
     form = LoginForm()
     return render(request, "index.html", {"login_form": form})
 
