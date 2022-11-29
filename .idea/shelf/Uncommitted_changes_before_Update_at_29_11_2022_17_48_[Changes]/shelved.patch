@@ -1,0 +1,44 @@
+Index: statkiOnlineBackend/game/views.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>from django.shortcuts import render,redirect\r\nfrom django.contrib.auth.decorators import login_required\r\n# from .forms import UserRegisterForm\r\nfrom django.contrib import messages\r\n\r\nfrom django.contrib.auth.mixins import LoginRequiredMixin\r\nfrom django.http import HttpResponse\r\n\r\n\r\ndef home(request):\r\n    return render(request,'homepage.tsx')\r\n\r\n\r\n@login_required\r\ndef room(request, room_name):\r\n    return render(request, '', {\"room_name\": room_name})\r\n\r\n\r\n@login_required\r\ndef profile(request):\r\n    pass\r\n\r\n\r\ndef stats(LoginRequiredMixin,):\r\n    pass\r\n\r\n# def register(request):\r\n#     return render(request,'registrationInterface.tsx')\r\n\r\n\r\n# def register(request):\r\n#     if request.method == 'POST':\r\n#         form = UserRegisterForm(request.POST)\r\n#         if form.is_valid():\r\n#             form.save()\r\n#             username = form.cleaned_data.get('username')\r\n#             messages.success(request, f'Your account has been created! You are now able to log in')\r\n#             return redirect('login')\r\n#     else:\r\n#         form = UserRegisterForm()\r\n#     return render(request, 'registrationInterface.tsx', {'form': form})\r\n\r\ndef login(request):\r\n    return render(request,'loggingInterface.tsx')
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/statkiOnlineBackend/game/views.py b/statkiOnlineBackend/game/views.py
+--- a/statkiOnlineBackend/game/views.py	(revision 0c9b5a9b22b43233534a0c5301650f6c5a35973d)
++++ b/statkiOnlineBackend/game/views.py	(date 1669416803069)
+@@ -1,4 +1,4 @@
+-from django.shortcuts import render,redirect
++from django.shortcuts import render, redirect
+ from django.contrib.auth.decorators import login_required
+ # from .forms import UserRegisterForm
+ from django.contrib import messages
+@@ -8,7 +8,7 @@
+ 
+ 
+ def home(request):
+-    return render(request,'homepage.tsx')
++    return render(request, 'homepage.html')
+ 
+ 
+ @login_required
+@@ -21,9 +21,10 @@
+     pass
+ 
+ 
+-def stats(LoginRequiredMixin,):
++def stats(LoginRequiredMixin, ):
+     pass
+ 
++
+ # def register(request):
+ #     return render(request,'registrationInterface.tsx')
+ 
+@@ -41,4 +42,4 @@
+ #     return render(request, 'registrationInterface.tsx', {'form': form})
+ 
+ def login(request):
+-    return render(request,'loggingInterface.tsx')
+\ No newline at end of file
++    return render(request, 'loggingInterface.tsx')
