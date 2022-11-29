@@ -799,10 +799,6 @@ select {
   display: grid;
 }
 
-.hidden {
-  display: none;
-}
-
 .h-4 {
   height: 1rem;
 }

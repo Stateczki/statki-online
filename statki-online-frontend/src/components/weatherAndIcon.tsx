@@ -1,4 +1,4 @@
-import profilowe from "../profilowe.png"
+import profilowe from "../profilowe.jpg"
 export default function WeatherAndIcon(){
     let temp:number = 22;
     let sky:string = "Sunny";
