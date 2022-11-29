@@ -31,7 +31,7 @@ export default function LoggingInterface() {
               </Link>
             </p>
           </div>
-          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="/login/" method="POST"> 
+          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="login/" method="POST">
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="login" className="sr-only">

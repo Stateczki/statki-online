@@ -1,11 +1,10 @@
 from imaplib import _Authenticator
 from multiprocessing import AuthenticationError
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import NewUserForm, LoginForm
 from django.contrib import messages
-
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
@@ -13,17 +12,22 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
 
 import logging, traceback
+
 logger = logging.getLogger('django')
+
 
 @csrf_exempt
 def home(request):
-    return render(request,'index.html')
+    return render(request, 'index.html')
+
 
 def csrf(request):
     return JsonResponse({'csrfToken': get_token(request)})
 
+
 def ping(request):
     return JsonResponse({'result': 'OK'})
+
 
 @login_required
 def room(request, room_name):
@@ -38,17 +42,7 @@ def profile(request):
 def stats(LoginRequiredMixin):
     pass
 
-@csrf_exempt
-def register_request(request):
-    if request.method =="POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            messages.success(request, "Registraton successful. ")
-            return redirect("login-form")
-        messages.error(request,"Nieprawidlowe lol")
-    form = NewUserForm()
-    return render(request, "index.html",context={"register_form":form})
-    
+
 @csrf_exempt
 def login_request(request):
     if request.method == "POST":
@@ -66,10 +60,9 @@ def login_request(request):
         else:
             messages.error(request, "Nieprawidlowe dane")
     form = LoginForm()
-    return render(request, "index.html", {"login_form":form})
+    return render(request, "index.html", {"login_form": form})
 
-    
-    
+
 @csrf_exempt
 def userHomepage(request):
-    return render(request,'index.html')
+    return render(request, 'index.html')

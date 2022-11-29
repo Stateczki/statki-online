@@ -8,7 +8,7 @@ export default function RegistrationInterface() {
                 Register your account
               </h2>
             </div>
-            <form className="mt-8 space-y-6" action="/register/" method="POST">
+            <form className="mt-8 space-y-6" action="register/" method="POST">
               <div className="rounded-md shadow-sm">
               <div className="mb-4">
                   <h1>Username</h1>
