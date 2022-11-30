@@ -16,19 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from game import views as game_views
+from users import views as user_views
 from django.contrib.auth import views as auth_views
 # from game.views import ho
 # from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', game_views.home, name='login-form'),
-    #musimy zrobic customowa funkcje loginu bo csrf exempt
+    path('', auth_views.LoginView.as_view(template_name='index.html'), name='login-form'),
     path('login/', game_views.login_request, name='logingIn'),
-    path('register/', game_views.register_request, name='register'),
+    path('register/', user_views.register_request, name='register'),
     path('homepage/',game_views.userHomepage, name='user-homepage'),
     path('csrf/', game_views.csrf),
     path('ping/', game_views.ping),
+
     # path('lobby', game_views.lobby.as_view(), name='lobby'),
     # path('play', game_views.play.as_view(), name='play'),
     # path('game<int:gameID>', game_views.game.as_view(), name='game'),

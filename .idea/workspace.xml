@@ -123,7 +123,7 @@
       <workItem from="1669740403246" duration="651000" />
       <workItem from="1669741061878" duration="753000" />
       <workItem from="1669742035244" duration="15789000" />
-      <workItem from="1669758610360" duration="663000" />
+      <workItem from="1669758610360" duration="306000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>
@@ -167,14 +167,7 @@
       <option name="project" value="LOCAL" />
       <updated>1669757822418</updated>
     </task>
-    <task id="LOCAL-00007" summary="Registration_Completed">
-      <created>1669758932557</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1669758932557</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

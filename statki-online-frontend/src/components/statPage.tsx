@@ -8,7 +8,7 @@ export default function StatPage(){
     let hits = 5900;
     let hitratio = hits/shots *100;
     return(
-        <div className="text-xl">
+        <div className="text-xl text-center">
                 <h1 className="underline-offset-4"><u>Personal statistics:</u></h1>
                 <ul>
                     <li>Games: {games} </li>

@@ -31,17 +31,17 @@ export default function LoggingInterface() {
               </Link>
             </p>
           </div>
-          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="/login/" method="POST"> 
+          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="login/" method="POST">
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
-                <label htmlFor="login" className="sr-only">
-                  username
+                <label htmlFor="username" className="sr-only">
+                  login
                 </label>
                 <input
-                  id="login"
-                  name="login"
+                  id="username"
+                  name="username"
                   type="text"
-                  autoComplete="login"
+                  autoComplete="username"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-black placeholder-gray-500 focus:z-10 focus:outline-none  sm:text-sm"
                   placeholder="Username"
