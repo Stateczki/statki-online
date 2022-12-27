@@ -115,7 +115,7 @@ export default function gameScreenFixed() {
             allFields[parseInt(shipId) + distance].setAttribute('draggable', 'true');
         }*/
       }
-    //BOARD FUNCTIONS - NOT READY
+    //BOARD FUNCTIONS - READY
     const board = (player:string) => {
         //array for iteration over rows and columns, defaultShips for default ships positions (those numbers are ids of fields)
         let array = [1,2,3,4,5,6,7,8,9,10];
@@ -173,8 +173,15 @@ export default function gameScreenFixed() {
         return boardArray;
     }
     function sendBoard(board:any) {
-        console.log(board);
-        //send board to server
+        fetch('http://localhost:3000/game/id/boardSent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(board)
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+        });
     }
     function readCheckSend(){
         let board = boardToArray();
@@ -189,7 +196,7 @@ export default function gameScreenFixed() {
     return (
         <div>
             <header id="start">
-                    <button id="start-button" onClick={readCheckSend}>Start</button>
+                    <button id="start-button" onClick={readCheckSend} type="submit">Start</button>
             </header>
             <main id="boards">
                 <div id="user-board">
