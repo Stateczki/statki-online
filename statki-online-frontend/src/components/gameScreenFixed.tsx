@@ -1,42 +1,6 @@
 import {useEffect} from 'react'
 export default function gameScreenFixed() {
-    //check if the array is correct
-    let arr1 = [
-        [1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,1,0,1,1,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,0,1,1,0,1,1,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,0,1,0,1,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0]
-    ];
-    let arr2 = [
-        [1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,1,1,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,0,1,1,0,1,1,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,0,1,0,1,0,1,0,0,0],
-        [0,0,0,0,0,0,0,1,1,1],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0]
-    ];
-    let arr3 = [
-        [1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,1,0,1,1,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,0,1,1,0,1,1,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,0,1,0,0,0,1,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0]
-    ];
+    //CHECK IF ARRAY CORRECT - READY
     const checkBoard = (array:any) => {
         //check if ships are not joined on the corners
         for(let i = 0; i < array.length-1; i++) {
@@ -102,7 +66,7 @@ export default function gameScreenFixed() {
         return true;
     }
 
-    //DRAG AND DROP FUNCTIONS
+    //DRAG AND DROP FUNCTIONS - NOT READY
     function allowDrop(ev:any) {
         ev.preventDefault();
     }
@@ -150,7 +114,7 @@ export default function gameScreenFixed() {
             allFields[parseInt(shipId) + distance].setAttribute('draggable', 'true');
         }*/
       }
-    //BOARD FUNCTION
+    //BOARD FUNCTIONS - NOT READY
     const board = (player:string) => {
         //array for iteration over rows and columns, defaultShips for default ships positions (those numbers are ids of fields)
         let array = [1,2,3,4,5,6,7,8,9,10];
@@ -216,6 +180,7 @@ export default function gameScreenFixed() {
             console.log(board);
         }*/
     }
+    //MAIN FUNCTION
     return (
         <div>
             <header id="start">
