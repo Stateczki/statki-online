@@ -67,6 +67,7 @@ export default function gameScreenFixed() {
     }
 
     //DRAG AND DROP FUNCTIONS - NOT READY
+    
     function allowDrop(ev:any) {
         ev.preventDefault();
     }
@@ -149,7 +150,7 @@ export default function gameScreenFixed() {
             </>
     }
     
-    async function boardToArray(board:any) {
+    function boardToArray() {
         let boardArray = [
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0],
@@ -162,23 +163,27 @@ export default function gameScreenFixed() {
             [0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0]
         ];
-        
+        let iterator = 1;
+        for(let i = 0; i < 10; i++)
+            for(let j = 0; j < 10; j++){
+                if(document.getElementById(""+iterator)!.className === "ship")
+                    boardArray[i][j] = 1;
+                iterator++
+            }
         return boardArray;
     }
     function sendBoard(board:any) {
         console.log(board);
+        //send board to server
     }
     function readCheckSend(){
-        let board = document.getElementById('user-board')!.children;
-        console.log(board);
-        /*
-        let boardArray = boardToArray(board);
+        let board = boardToArray();
         if(checkBoard(board))
             sendBoard(board);
         else{
             alert("Wrong board");
             console.log(board);
-        }*/
+        }
     }
     //MAIN FUNCTION
     return (
