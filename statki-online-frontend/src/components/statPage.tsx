@@ -1,6 +1,6 @@
 export default function StatPage(){
     //GAME STATS
-    let games = 2137;
+    let games = 2100;
     let wins = 911;
     let loses = games - wins;
     let winrate = wins / games *100;
