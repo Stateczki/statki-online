@@ -1,6 +1,6 @@
 import LoggingInterface from './loggingInterface';
 import RegistrationInterface from './registrationInterface';
-import GameScreen from './gameScreenFixed';
+import GameScreen from './gameScreen';
 import {
   BrowserRouter as Router,
   Route,

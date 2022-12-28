@@ -755,6 +755,10 @@ select {
   margin: 5rem;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -797,6 +801,10 @@ select {
 
 .grid {
   display: grid;
+}
+
+.hidden {
+  display: none;
 }
 
 .h-4 {
@@ -1097,13 +1105,7 @@ button[type=submit]:hover, button[type=button]:hover {
   color: var(--secondary);
 }
 
-#start {
-  margin: auto;
-  margin-top: 20px;
-  text-align: center;
-}
-
-#start-button {
+.action-button {
   font-size: 30px;
   padding: 10px;
   border-radius: 4px;
