@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Registration_Completed" />
+    <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Registration_Completed">
+      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_17_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_17_48__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statki-online-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/statki-online-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,6 +45,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2HT8minXEhWa276IyqTEXTxtZFs" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -36,15 +58,25 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/OneDrive/Dokumenty/GitHub/statki-online&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Dell\\OneDrive\\Dokumenty\\GitHub\\statki-online\\statki-online-frontend\\node_modules\\typescript\\lib&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Tomasz\\Documents\\GitHub\\statki-online\\statki-online-frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="Push.Settings">
     <force-push-targets>
       <force-push-target remote-path="origin" branch="main" />
     </force-push-targets>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tomasz\Documents\GitHub\statki-online\statkiOnlineBackend\users" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.manage">
     <configuration name="game" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -124,6 +156,12 @@
       <workItem from="1669741061878" duration="753000" />
       <workItem from="1669742035244" duration="15789000" />
       <workItem from="1669758610360" duration="306000" />
+      <workItem from="1672253064123" duration="4042000" />
+      <workItem from="1672257364093" duration="116000" />
+      <workItem from="1672257492064" duration="17641000" />
+      <workItem from="1672311705007" duration="16000" />
+      <workItem from="1672411564921" duration="12113000" />
+      <workItem from="1672595554937" duration="5548000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>
@@ -192,7 +230,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Registration_Completed" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/statki_online$manage.coverage" NAME="manage Coverage Results" MODIFIED="1672254226462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statkiOnlineBackend" />
     <SUITE FILE_PATH="coverage/statki_online$game.coverage" NAME="game Coverage Results" MODIFIED="1668450500987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statkiOnlineBackend/game/gameDir" />
-    <SUITE FILE_PATH="coverage/statki_online$manage.coverage" NAME="manage Coverage Results" MODIFIED="1669741385581" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statkiOnlineBackend" />
   </component>
 </project>

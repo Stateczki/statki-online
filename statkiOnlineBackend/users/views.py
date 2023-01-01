@@ -1,11 +1,22 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm,LoginForm
+from .forms import UserRegisterForm, LoginForm
 from django.views.decorators.csrf import csrf_exempt
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.safestring import mark_safe
+from django.core import serializers
+from django.http import JsonResponse
+from rest_framework.views import APIView
+from .serializers import ProfileSerializer
+from .models import Profile
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
+from django.shortcuts import get_object_or_404
 
 
 @csrf_exempt
@@ -41,11 +52,10 @@ def login_request(request):
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
-            print(username, "    ", password)
             if user is not None:
                 print("Jata")
                 login(request, user)
-                messages.info(request, f"You are now logged in as {login}")
+                messages.info(request, mark_safe(f"You are now logged in as {login}"))
                 return redirect("user-homepage")
             else:
                 messages.error(request, "Nie ma takiego usera")
@@ -58,5 +68,11 @@ def login_request(request):
 
 
 @csrf_exempt
+@login_required
 def userHomepage(request):
-    return render(request, 'index.html')
+    serializer = ProfileSerializer(request.user)
+    data = JSONRenderer().render(serializer.data)
+    print(data)
+    return render(request, "index.html", {"data": data})
+
+

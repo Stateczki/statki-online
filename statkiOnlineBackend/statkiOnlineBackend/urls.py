@@ -14,12 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from game import views as game_views
 from users import views as user_views
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+
 # from game.views import ho
 # from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,13 +31,17 @@ urlpatterns = [
     path('login/', user_views.login_request, name='logingIn'),
     path('logout/', auth_views.LogoutView.as_view(template_name='index.html'), name='logout'),
     path('register/', user_views.register_request, name='register'),
-    path('homepage/',user_views.userHomepage, name='user-homepage'),
+    path('homepage/', user_views.userHomepage, name='user-homepage'),
     path('csrf/', game_views.csrf),
     path('ping/', game_views.ping),
 
+    # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),
     # path('play', game_views.play.as_view(), name='play'),
     # path('game<int:gameID>', game_views.game.as_view(), name='game'),
     # path('<str:username>/stats', game_views.stats.as_view(), name='user-stats')
     # path('logout/', auth_views.LogoutView.as_view(template_name='loggingInterface.tsx'), name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
