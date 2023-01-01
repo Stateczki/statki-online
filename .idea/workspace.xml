@@ -4,22 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Registration_Completed">
-      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_17_48__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_11_2022_17_48__Changes_.xml" afterDir="false" />
+    <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statki-online-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/statki-online-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +27,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="da6a6bfc-fac8-467f-9dc3-a94bcc31099c" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -52,22 +41,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dell/OneDrive/Dokumenty/GitHub/statki-online&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Tomasz\\Documents\\GitHub\\statki-online\\statki-online-frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Dell/OneDrive/Dokumenty/GitHub/statki-online",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "ts.external.directory.path": "C:\\Users\\Tomasz\\Documents\\GitHub\\statki-online\\statki-online-frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="Push.Settings">
     <force-push-targets>
       <force-push-target remote-path="origin" branch="main" />
@@ -161,7 +150,7 @@
       <workItem from="1672257492064" duration="17641000" />
       <workItem from="1672311705007" duration="16000" />
       <workItem from="1672411564921" duration="12113000" />
-      <workItem from="1672595554937" duration="5548000" />
+      <workItem from="1672595554937" duration="5922000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>
@@ -205,7 +194,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669757822418</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij">
+      <created>1672601740908</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1672601740908</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +223,8 @@
     <MESSAGE value="I want to go home" />
     <MESSAGE value="Pocopocopoco" />
     <MESSAGE value="Registration_Completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Registration_Completed" />
+    <MESSAGE value="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij" />
+    <option name="LAST_COMMIT_MESSAGE" value="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/statki_online$manage.coverage" NAME="manage Coverage Results" MODIFIED="1672254226462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statkiOnlineBackend" />
