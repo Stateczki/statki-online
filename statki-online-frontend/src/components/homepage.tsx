@@ -9,16 +9,18 @@ import {
   } from 'react-router-dom';
 import ProfilePage from "./profilePage";
 import StatPage from "./statPage";
+import { useEffect } from "react";
 
 export default function Homepage() {
     //GETTING USER OBJECT
-    let userObject = fetch("http://localhost:8000/user", {
-        method: "GET",
-        credentials: "include"
+    useEffect(() => {
+        fetch("http://localhost:8000/homepage/", {
+            method: "GET",
+            credentials: "include"
         }).then(response => response.json()).then(data => {
             console.log(data);
-            return data;
         });
+    }, []);
     return(
         <>
             <TopBar />

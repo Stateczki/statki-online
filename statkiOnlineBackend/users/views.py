@@ -75,4 +75,16 @@ def userHomepage(request):
     print(data)
     return render(request, "index.html", {"data": data})
 
+@csrf_exempt
+@login_required
+def user_info(request):
+    user = get_object_or_404(Profile, username=request.user)
+    serializer = ProfileSerializer(user)
+    data = JSONRenderer().render(serializer.data)
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt
+@login_required
+def game(request):
+    return render(request, "index.html")
 

@@ -34,6 +34,7 @@ urlpatterns = [
     path('homepage/', user_views.userHomepage, name='user-homepage'),
     path('csrf/', game_views.csrf),
     path('ping/', game_views.ping),
+    path('homepage/game/', user_views.game, name='game'),
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),
