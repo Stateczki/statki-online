@@ -135,6 +135,7 @@ export default function GameScreen() {
             <div className="field-h">H</div>
             <div className="field-h">I</div>
             <div className="field-h">J</div>
+            <div className="field-h"></div>
             {array.map((colEl) => {
                     return <>
                         <div className="field-h" key={"0_"+iterator}>{colEl}</div>
@@ -146,13 +147,17 @@ export default function GameScreen() {
                                     return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onDrop = {drop} onDragOver={allowDrop}></div>
                             }
                             else if (player === "enemy") {
-                                return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onClick={shootEnemyShip}></div>
+                                return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={""+iterator++} onClick={shootEnemyShip}></div>
                             }
                             
                         })}
+                        <div className="field-h"></div>
                     </>
                 }
             )}
+            {array.map(() => {
+                return <div className="field-h"></div>
+            })}
             </>
     }
 
@@ -255,16 +260,22 @@ export default function GameScreen() {
                     <button className="action-button" onClick={readCheckSend} type="submit">Start</button>
             </header>}
             <main id="boards">
-                <div id="user-board">
-                    {board("player")}  
+                <div>
+                    <p className="text-center text-2xl">Player</p>
+                    <div id="user-board">
+                        {board("player")}  
+                    </div>
                 </div>
-                <div id="computer-board">
-                    {board("enemy")}  
+                <div>
+                    <p className="text-center text-2xl">Opponent</p>
+                    <div id="computer-board">
+                        {board("enemy")}  
+                    </div>
                 </div>
             </main>
             {!gameStarted && playersTurn &&
-            <footer className="text-center m-1">
-                    <button className="action-button" type="submit">SendMove</button>
+            <footer className="text-center">
+                    <button className="action-button" type="submit" disabled>Your Turn</button>
             </footer> }
             
         </div>
