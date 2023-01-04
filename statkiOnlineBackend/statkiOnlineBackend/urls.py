@@ -32,10 +32,10 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='index.html'), name='logout'),
     path('register/', user_views.register_request, name='register'),
     path('homepage/', user_views.userHomepage, name='user-homepage'),
-    path('homepage/profile/',user_views.user_info,name='user-info'),
+    path('userInfo/',user_views.user_info,name='user-info'),
     path('csrf/', game_views.csrf),
     path('ping/', game_views.ping),
-    path('homepage/game/', user_views.game, name='game'),
+    path('game/', user_views.game, name='game'),
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),

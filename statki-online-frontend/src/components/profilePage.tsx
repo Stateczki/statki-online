@@ -1,6 +1,12 @@
+import { useEffect } from "react";
+
 export default function ProfilePage(){
+    
+    let userData = fetch('http://127.0.0.1:8000/userInfo/')
+      .then(response => response.json());
+    
      //ACCOUNT STATS
-     let username = "polak";
+     let username = ""
      let email = "polak@gmail.va";
      let playerId = 2137911420;
      let premium = "yes";

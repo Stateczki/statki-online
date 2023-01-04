@@ -243,8 +243,8 @@ export default function GameScreen() {
     }
     //GAME FUNCTIONS
     const [gameStarted, setGameStarted] = useState(false);
-    const [playersTurn, setPlayersTurn] = useState(false);
-    const [enemyFound, setEnemyFound] = useState(false);
+    const [playersTurn, setPlayersTurn] = useState(true);
+    const [enemyFound, setEnemyFound] = useState(true);
 
 
     //RENDER
@@ -262,7 +262,7 @@ export default function GameScreen() {
                     {board("enemy")}  
                 </div>
             </main>
-            {gameStarted && playersTurn &&
+            {!gameStarted && playersTurn &&
             <footer className="text-center m-1">
                     <button className="action-button" type="submit">SendMove</button>
             </footer> }

@@ -12,15 +12,6 @@ import StatPage from "./statPage";
 import { useEffect } from "react";
 
 export default function Homepage() {
-    //GETTING USER OBJECT
-    useEffect(() => {
-        fetch("http://localhost:8000/homepage/", {
-            method: "GET",
-            credentials: "include"
-        }).then(response => response.json()).then(data => {
-            console.log(data);
-        });
-    }, []);
     return(
         <>
             <TopBar />
