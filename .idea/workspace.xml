@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij">
+      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/routing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -157,6 +166,7 @@
       <workItem from="1672619408050" duration="620000" />
       <workItem from="1672660972796" duration="5000" />
       <workItem from="1672666133774" duration="1300000" />
+      <workItem from="1672912051278" duration="7912000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>

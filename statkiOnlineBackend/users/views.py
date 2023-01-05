@@ -83,7 +83,4 @@ def user_info(request):
     return JsonResponse(serializer.data, safe=False)
 
 
-@csrf_exempt
-@login_required
-def game(request):
-    return render(request, "index.html")
+

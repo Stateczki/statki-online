@@ -1,13 +1,9 @@
-from imaplib import _Authenticator
-from multiprocessing import AuthenticationError
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
-from .models import User
+import re
 
 import logging, traceback
 
@@ -27,7 +23,15 @@ def ping(request):
     return JsonResponse({'result': 'OK'})
 
 
+@csrf_exempt
 @login_required
-def room(request, room_name):
-    return render(request, '', {"room_name": room_name})
+def room(request):
+    return render(request, "index.html")
+    # return render(request, '', {"room_name": room_name})
+
+@csrf_exempt
+@login_required
+def game(request):
+    return render(request, "index.html")
+
 
