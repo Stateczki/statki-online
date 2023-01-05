@@ -19,7 +19,7 @@ export default function WeatherAndIcon(){
     return(
         <main className="flex justify-around m-20">
             <div>
-                <img src={image} className="w-56 rounded-full"></img>
+                <img src={image} className="w-72 h-72 rounded-full"></img>
             </div>
             <div className="text-xl">
                 <h1 className="underline-offset-4"><u>Today's Weather:</u></h1>
