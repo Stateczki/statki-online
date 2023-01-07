@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_exempt
+from .models import StatkiRoom
 import re
 
 import logging, traceback
@@ -31,7 +32,16 @@ def room(request):
 
 @csrf_exempt
 @login_required
-def game(request):
+def game(request, room_name):
+    if not re.match(r'^[\w-]*$', room_name):
+        print("Jadupia")
     return render(request, "index.html")
 
 
+@csrf_exempt
+def roomExist(request, room_name):
+    print(room_name)
+
+    return JsonResponse({
+        "room_exist": StatkiRoom.objects.filter(room_name=room_name).exists()
+    })

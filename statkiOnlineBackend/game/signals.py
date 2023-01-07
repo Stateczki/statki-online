@@ -12,7 +12,6 @@ channel_layer = get_channel_layer()
 def create_room_signal(sender, instance, created, *args, **kwargs):
     ins_roomm_name = instance.room_name
     ins_id = instance.id
-
     if created:
         async_to_sync(channel_layer.group_send)(
             f'statki_room',

@@ -8,12 +8,12 @@ import re
 
 class StatkiConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
-
+        print("Helloou")
         self.url_route = self.scope['url_route']['kwargs']['room_name']
         await self.accept()
-        self.room_name = f'bingo_room_{self.url_route}'
+        self.room_name = f'statki_room_{self.url_route}'
         await self.create_room()
-        self.user_left = ''
+        self.user_left= ''
         await self.channel_layer.group_add(
             self.room_name,
             self.channel_name
@@ -21,7 +21,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def create_room(self):
-        self.bingo_room, _ = StatkiRoom.objects.get_or_create(room_name=self.url_route)
+        print("Bicz")
+        self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.url_route)
 
     async def receive_json(self, content):
         command = content.get("command", None)
@@ -52,7 +53,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                     "info": info,
                     "user": user,
                     "command": command,
-                    'bingoCount': content.get("bingoCount", 'none')
+                    # 'bingoCount': content.get("bingoCount", 'none')
 
                 }
             )
@@ -74,8 +75,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def players_count(self):
-        self.all_players_for_room = [x.username for x in self.bingo_room.trackplayer_set.all()]
-        self.players_count_all = self.bingo_room.trackplayer_set.all().count()
+        self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
+        self.players_count_all = self.statki_room.trackplayer_set.all().count()
 
     async def websocket_info(self, event):
         await self.send_json(({
@@ -86,21 +87,22 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
         }))
 
-    async def websocket_chat(self, event):
-        await self.send_json(({
-            'user': event["user"],
-            'chat': event["chat"],
-            'command': event["command"],
-
-        }))
+    # async def websocket_chat(self, event):
+    #     await self.send_json(({
+    #         'user': event["user"],
+    #         'chat': event["chat"],
+    #         'command': event["command"],
+    #
+    #     }))
 
     async def websocket_joined(self, event):
+        print("cunt")
         await self.players_count()
         await self.send_json(({
             'command': event["command"],
             'info': event["info"],
             'user': event["user"],
-            'bingoCount': event.get("bingoCount"),
+            # 'bingoCount': event.get("bingoCount"),
             "users_count": self.players_count_all,
             "all_players": self.all_players_for_room
         }))
@@ -125,10 +127,10 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def delete_player(self):
-        TrackPlayer.objects.get(room=self.bingo_room, username=self.user_left).delete()
-        players_count = self.bingo_room.trackplayer_set.all().count()
+        TrackPlayer.objects.get(room=self.statki_room, username=self.user_left).delete()
+        players_count = self.statki_room.trackplayer_set.all().count()
         if players_count == 0:
-            self.bingo_room.delete()
+            self.statki_room.delete()
 
     async def websocket_leave(self, event):
         await self.players_count()
@@ -145,7 +147,8 @@ class OnlineRoomConsumer(AsyncJsonWebsocketConsumer):
 
     async def connect(self):
         await self.accept()
-        self.room_name = 'online_bingo_room'
+        print("asss")
+        self.room_name = 'statki_room'
         await self.channel_layer.group_add(
             self.room_name,
             self.channel_name
