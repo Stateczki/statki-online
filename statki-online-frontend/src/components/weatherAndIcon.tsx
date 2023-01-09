@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import profilowe from "../profilowe.jpg"
 export default function WeatherAndIcon(){
     //user parameters
     let userData : any;
@@ -8,18 +7,20 @@ export default function WeatherAndIcon(){
     let humidity:number = 80;
     let rainfall:string = "None at all";
     let atmosphericPressure = 1019;
-    const [image, setImage] = useState(profilowe);
+    const [image, setImage] = useState("../profilowe.jpg");
 
     //fetch section
     fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
         .then(data => {
-            setImage(data.image);
+                setImage(data.image);
+        }).catch(error => {
+            console.log(error);
         });
     return(
         <main className="flex justify-around m-20">
             <div>
-                <img src={image} className="w-72 h-72 rounded-full"></img>
+                <img src={image} alt="YEAH BUDDY" className="w-72 h-72 rounded-full"></img>
             </div>
             <div className="text-xl">
                 <h1 className="underline-offset-4"><u>Today's Weather:</u></h1>
