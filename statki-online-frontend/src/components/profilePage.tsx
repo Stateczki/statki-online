@@ -6,7 +6,6 @@ export default function ProfilePage(){
     const [email, setEmail] = useState("default");
     let playerId = 2137911420;
     let premium = "yes";
-    let userData : any;
     fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
         .then(data => {

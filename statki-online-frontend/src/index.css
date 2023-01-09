@@ -827,16 +827,16 @@ select {
   width: 1rem;
 }
 
-.w-72 {
-  width: 18rem;
-}
-
 .w-36 {
   width: 9rem;
 }
 
 .w-96 {
   width: 24rem;
+}
+
+.w-72 {
+  width: 18rem;
 }
 
 .max-w-md {
@@ -902,10 +902,6 @@ select {
   margin-bottom: calc(-1px * var(--tw-space-y-reverse));
 }
 
-.self-center {
-  align-self: center;
-}
-
 .justify-self-center {
   justify-self: center;
 }
@@ -947,18 +943,6 @@ select {
 
 .border-transparent {
   border-color: transparent;
-}
-
-.p-12 {
-  padding: 3rem;
-}
-
-.p-4 {
-  padding: 1rem;
-}
-
-.p-3 {
-  padding: 0.75rem;
 }
 
 .p-2 {
@@ -1019,11 +1003,6 @@ select {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
 }
 
 .font-bold {

@@ -45,3 +45,9 @@ def roomExist(request, room_name):
     return JsonResponse({
         "room_exist": StatkiRoom.objects.filter(room_name=room_name).exists()
     })
+
+@csrf_exempt
+def roomsList(request):
+    return JsonResponse({
+        "rooms": list(StatkiRoom.objects.all().values())
+    })

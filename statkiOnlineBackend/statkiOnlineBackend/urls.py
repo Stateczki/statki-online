@@ -33,10 +33,14 @@ urlpatterns = [
     path('register/', user_views.register_request, name='register'),
     path('homepage/', user_views.userHomepage, name='user-homepage'),
     path('userInfo/', user_views.user_info, name='user-info'),
-    path('csrf/', game_views.csrf),
     path('ping/', game_views.ping),
     # path('game/', game_views.game, name='game'),
-    path('<str:room_name>/', game_views.game, name="game"),
+
+    # TE TRZEBA NAPISAC
+    path('game/allRooms', game_views.roomsList, name='roomsList' ),
+    path('game/<str:room_name>', game_views.game, name='game'),
+    #path('game/createRoom', game_views.createRoom, name='createRoom'),
+    #path('game/joinRoom', game_views.joinRoom, name='joinRoom'),
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),

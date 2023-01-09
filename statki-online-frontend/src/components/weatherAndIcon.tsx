@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 export default function WeatherAndIcon(){
     //user parameters
-    let userData : any;
     let temp:number = 22;
     let sky:string = "Sunny";
     let humidity:number = 80;

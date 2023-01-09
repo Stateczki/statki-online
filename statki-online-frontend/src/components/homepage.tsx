@@ -2,14 +2,11 @@ import PlayButton from "./playButton";
 import TopBar from "./topBar";
 import WeatherAndIcon from "./weatherAndIcon";
 import {
-    BrowserRouter as Router,
     Route,
     Routes as Switch,
-    Link
   } from 'react-router-dom';
 import ProfilePage from "./profilePage";
 import StatPage from "./statPage";
-import { useEffect } from "react";
 
 export default function Homepage() {
     return(
