@@ -7,26 +7,13 @@ export default function PlayButton(){
         .then(response => response.json())
         .then(data => setUserId(data.id));
     const [rooms, setRooms] = useState([
-        { roomName: "EMPTY" }
+        { id: -1, roomName: "EMPTY" }
     ]);
-    fetch('http://127.0.0.1:8000/game/allRooms/')
+    //NOT WORKING - ALL ROOMS HAVE TO RETURN ARRAY
+    /*fetch('http://127.0.0.1:8000/game/allRooms/')
         .then(response => response.json())
-        .then(data => setRooms(data));
+        .then(data => setRooms(data));*/
     // OUTPUT ALL AVILABLE ROOMS
-    function mapAllRooms(){
-        console.log(rooms)
-        return rooms.map((room) => {
-            return (
-                <li>
-                    <form action="game/joinRoom" method="POST">
-                        <input type="hidden" name="userId" value={userId}></input>
-                        <input type="hidden" name="roomName" value={room.roomName}></input>
-                        <button type="submit" className="m-2 p-2 w-36">{room.roomName}</button>
-                    </form>
-                </li>
-            )
-        })
-    }
     return (
         <main className="flex justify-center">
             <div>
@@ -44,15 +31,23 @@ export default function PlayButton(){
                 <h1 className="text-2xl text-center">List of rooms:</h1>
                 
                 <ul id="roomList" className="flex w-96 flex-wrap justify-evenly">
-                    <li>
-                        <form action="game/joinRoom" method="POST">
-                            <input type="hidden" name="userId" value={userId}></input>
-                            <input type="hidden" name="roomName" value='1'></input>
-                            <button type="submit" className="m-2 p-2 w-36">Prop room</button>
-                        </form>
-                    </li>
+                        <li>
+                            <form action="game/joinRoom" method="POST">
+                                <input type="hidden" name="userId" value={userId}></input>
+                                <input type="hidden" name="roomName" value='1'></input>
+                                <button type="submit" className="m-2 p-2 w-36">Prop room</button>
+                            </form>
+                        </li>
                     {
-                        mapAllRooms()
+                        rooms.map((room) => (
+                            <li key={room.id}>
+                                <form action="game/joinRoom" method="POST">
+                                    <input type="hidden" name="userId" value={userId}></input>
+                                    <input type="hidden" name="roomName" value={room.roomName}></input>
+                                    <button type="submit" className="m-2 p-2 w-36">{room.roomName}</button>
+                                </form>
+                            </li>
+                        ))
                     }
                 </ul>
             </div>

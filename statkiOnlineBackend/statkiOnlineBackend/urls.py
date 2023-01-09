@@ -36,11 +36,11 @@ urlpatterns = [
     path('ping/', game_views.ping),
     # path('game/', game_views.game, name='game'),
 
-    # TE TRZEBA NAPISAC
-    path('game/allRooms', game_views.roomsList, name='roomsList' ),
-    path('game/<str:room_name>', game_views.game, name='game'),
-    #path('game/createRoom', game_views.createRoom, name='createRoom'),
-    #path('game/joinRoom', game_views.joinRoom, name='joinRoom'),
+    # TO BE CHECKED
+    path('game/allRooms/', game_views.roomsList, name='roomsList' ),
+    path('game/<str:room_name>/', game_views.game, name='game'),
+    path('game/createRoom/', game_views.createRoom, name='createRoom'),
+    path('game/joinRoom/', game_views.joinRoom, name='joinRoom'),
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),

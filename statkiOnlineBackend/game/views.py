@@ -46,8 +46,29 @@ def roomExist(request, room_name):
         "room_exist": StatkiRoom.objects.filter(room_name=room_name).exists()
     })
 
+#Idk if those work, check pls
 @csrf_exempt
 def roomsList(request):
     return JsonResponse({
         "rooms": list(StatkiRoom.objects.all().values())
     })
+
+@csrf_exempt
+def createRoom(request):
+    if(StatkiRoom.objects.filter(room_name=room_name).exists()):
+        return JsonResponse({
+            "Such room already exists!"
+        })
+    else:
+        StatkiRoom.objects.create(room_name=room_name)
+        return render(request, "index.html")
+
+
+@csrf_exempt
+def joinRoom(request, room_name):
+    if(StatkiRoom.objects.filter(room_name=room_name).exists()):
+        render(request, "index.html")
+    else:
+        return JsonResponse({
+            "room_exist": False
+        })
