@@ -30,6 +30,7 @@ body {
 /*             CUSTOM LINKS AND BUTTONS                 */
 input[type=text],input[type=email],input[type=password] {
   background-color: var(--primary);
+  color:black;
 }
 
 button[type=submit]{

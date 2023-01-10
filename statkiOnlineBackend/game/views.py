@@ -52,6 +52,8 @@ def roomsList(request):
     return JsonResponse({
         "rooms": list(StatkiRoom.objects.all().values())
     })
+    
+    
 
 @csrf_exempt
 def createRoom(request):
