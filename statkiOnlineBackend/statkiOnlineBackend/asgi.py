@@ -8,18 +8,25 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 
 import os
-
+import django
 from channels.routing import ProtocolTypeRouter
 from django.core.asgi import get_asgi_application
-
+from channels.auth import AuthMiddlewareStack
+from channels.routing import ProtocolTypeRouter, URLRouter
+import game.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'statkiOnlineBackend.settings')
+django.setup()
 
 django_asgi_app = get_asgi_application()
 
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
-    # HTTP for now (we can add other protocols later)
+    "websocket": AuthMiddlewareStack(
+            URLRouter(
+                game.routing.websocket_urlpatterns
+            )
+        ),
 })
 
 

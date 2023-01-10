@@ -21,7 +21,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def create_room(self):
-        print("Bicz")
         self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.url_route)
 
     async def receive_json(self, content):

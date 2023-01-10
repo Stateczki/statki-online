@@ -24,7 +24,6 @@ from django.conf import settings
 # from game.views import ho
 # from django.views.generic import TemplateView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', auth_views.LoginView.as_view(template_name='index.html'), name='login-form'),
@@ -35,9 +34,8 @@ urlpatterns = [
     path('userInfo/', user_views.user_info, name='user-info'),
     path('ping/', game_views.ping),
     # path('game/', game_views.game, name='game'),
-
+    path('game/allRooms/', game_views.roomsList, name='roomsList'),
     # TO BE CHECKED
-    path('game/allRooms/', game_views.roomsList, name='roomsList' ),
     path('game/<str:room_name>/', game_views.game, name='game'),
     # MAKE THOSE 2 REDIRECT TO THE UPPER METHOD
     path('homepage/createRoom/', game_views.createRoom, name='createRoom'),
@@ -50,6 +48,7 @@ urlpatterns = [
     # path('<str:username>/stats', game_views.stats.as_view(), name='user-stats')
     # path('logout/', auth_views.LogoutView.as_view(template_name='loggingInterface.tsx'), name='logout'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
