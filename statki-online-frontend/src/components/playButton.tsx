@@ -25,12 +25,12 @@ export default function PlayButton(){
         <main className="flex justify-center">
             <div>
                 <h1 className="text-2xl text-center">Play</h1>
-                <form action="game/createRoom/" method="POST">
+                <form action="createRoom/" method="POST">
                     <input type="hidden" name="userId" value={userId}></input>
                     <input type="text" name="roomName" placeholder="Room name"></input>
                     <button type="submit" className="m-2 p-2 w-36">Create Room</button>
                 </form>
-                <form action = "game/joinRoom/" method="POST">
+                <form action = "joinRoom/" method="POST">
                     <input type="hidden" name="userId" value={userId}></input>
                     <input type="text" name="roomName" placeholder="Room name"></input>
                     <button type="submit" className="m-2 p-2 w-36">Join Room</button>
@@ -41,7 +41,7 @@ export default function PlayButton(){
                         {
                             rooms.map((room) => (
                                 <li key={room.id}>
-                                    <form action="game/joinRoom/" method="POST">
+                                    <form action="joinRoom/" method="POST">
                                         <input type="hidden" name="userId" value={userId} className="text-black"></input>
                                         <input type="hidden" name="roomName" value={room.room_name} className="text-black"></input>
                                         <button type="submit" className="m-2 p-2 w-36">{room.room_name}</button>

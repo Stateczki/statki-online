@@ -35,7 +35,7 @@ def room(request):
 def game(request, room_name):
     if not re.match(r'^[\w-]*$', room_name):
         print("Jadupia")
-    return render(request, "index.html")
+    return render("game/"+room_name+"/", "index.html")
 
 
 @csrf_exempt
@@ -55,22 +55,25 @@ def roomsList(request):
     
     
 
+#tomuuś napraw bo nw co robie 
 @csrf_exempt
 def createRoom(request):
+    room_name = request.POST.get('room_name')
     if(StatkiRoom.objects.filter(room_name=room_name).exists()):
         return JsonResponse({
             "Such room already exists!"
         })
     else:
         StatkiRoom.objects.create(room_name=room_name)
-        return render(request, "index.html")
+        return render("game/"+room_name+"/", "index.html")
 
 
 @csrf_exempt
-def joinRoom(request, room_name):
+def joinRoom(request):
+    room_name = request.POST.get('room_name')
     if(StatkiRoom.objects.filter(room_name=room_name).exists()):
-        render(request, "index.html")
+        render("game/"+room_name+"/", "index.html")
     else:
         return JsonResponse({
-            "room_exist": False
+            request.POST.get('room_name')
         })

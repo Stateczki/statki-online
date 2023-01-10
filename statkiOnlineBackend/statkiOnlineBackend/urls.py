@@ -38,9 +38,10 @@ urlpatterns = [
 
     # TO BE CHECKED
     path('game/allRooms/', game_views.roomsList, name='roomsList' ),
-    path('homepage/game/<str:room_name>/', game_views.game, name='game'),
-    path('homepage/game/createRoom/', game_views.createRoom, name='createRoom'),
-    path('homepage/game/joinRoom/', game_views.joinRoom, name='joinRoom'),
+    path('game/<str:room_name>/', game_views.game, name='game'),
+    # MAKE THOSE 2 REDIRECT TO THE UPPER METHOD
+    path('homepage/createRoom/', game_views.createRoom, name='createRoom'),
+    path('homepage/joinRoom/', game_views.joinRoom, name='joinRoom'),
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),
