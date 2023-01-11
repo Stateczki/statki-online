@@ -9,7 +9,7 @@ export default function GameScreen() {
         const [userId, setUserId] = useState("default");    
         const [playerUsername, setPlayerUsername] = useState("you");
         const [enemyUsername, setEnemyUsername] = useState("opponent");
-        const [socket, setSocket] = useState(new WebSocket(socketUrl)); 
+        const [socket, setSocket] = useState(new WebSocket(socketUrl));
     //WEB SOCKET STUFF
     useEffect(() => {
         fetch('http://127.0.0.1:8000/userInfo/')
@@ -17,18 +17,21 @@ export default function GameScreen() {
         .then(data => {
             setPlayerUsername(data.username);
             setUserId(data.id);
+            socket.send(JSON.stringify({
+                'type': 'connect',
+                'clientId': userId,
+                'message': 'User connected'
+            }));
         });
 
         socket.onopen = () => {
             socket.send(JSON.stringify({
-                'type': 'connect',
-                'clientId': userId,
-                'message': 'Connected'
+                'type': 'connecting',
+                'message': 'User is connecting...'
             }));
         }
 
         socket.onclose = () => {
-            console.log("Disconnected from server");
             socket.send(JSON.stringify({
                 'type': 'disconnect',
                 'clientId': userId,
@@ -39,7 +42,7 @@ export default function GameScreen() {
         socket.onerror = (e) => {
             console.log("Error: ", e);
         }
-    }, [socket]);
+    }, []);
     
     socket.onmessage = (e) => {
         let data = JSON.parse(e.data);
