@@ -6,6 +6,9 @@ class Profile(models.Model):
     username = models.CharField(max_length=2137)
     email = models.EmailField()
     image = models.ImageField(default='profilowe.jpg', upload_to='profile_pics')
+    playerID = models.CharField(default='0000', max_length=8)
+    wins = models.PositiveIntegerField(default=0)
+    loses = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.username

@@ -8,24 +8,25 @@ import re
 
 class StatkiConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
-        print("Helloou")
         self.url_route = self.scope['url_route']['kwargs']['room_name']
         await self.accept()
-        self.room_name = f'statki_room_{self.url_route}'
+
+
+        self.room_name = f'{self.url_route}'
         await self.create_room()
-        self.user_left= ''
-        await self.channel_layer.group_add(
-            self.room_name,
-            self.channel_name
-        )
+        # await self.create_players(self.)
+        print("self.statki_room ", self.statki_room)
 
     @database_sync_to_async
     def create_room(self):
+        print("create_room")
         self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.url_route)
 
     async def receive_json(self, content):
         command = content.get("command", None)
-
+        print("json jedzieeeeeee")
+        print(content)
+        # print("receive_json     ",command.get("username", None))
         if command == "clicked":
             dataid = content.get("dataset", None)
             await self.channel_layer.group_send(
@@ -56,28 +57,20 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
                 }
             )
-        if command == "chat":
-            await self.channel_layer.group_send(
-                self.room_name,
-                {
-                    "type": "websocket_chat",
-                    "chat": content.get("chat", None),
-                    "user": content.get("user", None),
-                    "command": command,
-
-                }
-            )
 
     @database_sync_to_async
     def create_players(self, name):
+        print("create_players")
         TrackPlayer.objects.get_or_create(room=self.bingo_room, username=name)
 
     @database_sync_to_async
     def players_count(self):
+        print("Managing Plejer Kant!")
         self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
         self.players_count_all = self.statki_room.trackplayer_set.all().count()
 
     async def websocket_info(self, event):
+        print("websocket_info")
         await self.send_json(({
             'dataset': int(event["dataid"]),
             'user': event["user"],
@@ -144,9 +137,9 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
 class OnlineRoomConsumer(AsyncJsonWebsocketConsumer):
 
-    async def connect(self):
-        await self.accept()
+    async def connect(self, event):
         print("asss")
+        await self.accept()
         self.room_name = 'statki_room'
         await self.channel_layer.group_add(
             self.room_name,

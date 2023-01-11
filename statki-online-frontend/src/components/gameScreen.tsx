@@ -3,9 +3,9 @@ import {useState, useEffect} from 'react'
 export default function GameScreen() {
     //GAME FUNCTIONS
         let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
-        const [gameStarted, setGameStarted] = useState(false);
-        const [playersTurn, setPlayersTurn] = useState(false);
-        const [enemyFound, setEnemyFound] = useState(false);
+        const [gameStarted, setGameStarted] = useState(true);
+        const [playersTurn, setPlayersTurn] = useState(true);
+        const [enemyFound, setEnemyFound] = useState(true);
         const [userId, setUserId] = useState("default");    
         const [playerUsername, setPlayerUsername] = useState("you");
         const [enemyUsername, setEnemyUsername] = useState("opponent");
