@@ -168,54 +168,49 @@ export default function GameScreen() {
     }
 
     //DRAG AND DROP FUNCTIONS - NOT READY
-    
-    function allowDrop(ev:any) {
+    let allFields = document.getElementsByClassName('field');
+
+    const allowDrop = function allowDrop(ev:any) {
         ev.preventDefault();
     }
-    const drag = (ev:any) => {
-        console.log(ev);
-        /*
-        let allFields = document.getElementById('user-board')!.children;        
+
+    const drag = function drag(ev:any) {
         const shipClassName = ev.target.className;
         ev.dataTransfer.setData("className", shipClassName);
         ev.dataTransfer.setData('shipId', ev.target.id);
-
+      
         //transfer coordinates of the ship
         const shipCoordinates = []
         for(let element of allFields) {
-            if(element.className == shipClassName) {
+          if(element.className == shipClassName) {
             shipCoordinates.push(element.id);
             element.removeAttribute('ondragstart');
             element.removeAttribute('draggable');
-
+      
             element.setAttribute('class', 'field');
             element.setAttribute('ondrop', 'drop(event)');
             element.setAttribute('ondragover', 'allowDrop(event)');
-            }
+          }
         }
-        ev.dataTransfer.setData('list', shipCoordinates);*/
+        ev.dataTransfer.setData('list', shipCoordinates);
     }
-    const drop = (ev:any) => { 
-        console.log(ev)
-        /*
-        let allFields = document.getElementById('user-board')!.children;        
-
+    const drop = function drop(ev:any) {
         ev.preventDefault();
         const shipClass = ev.dataTransfer.getData("className");
-
+      
         const shipCoordinatesText = ev.dataTransfer.getData('list');
         const distance = ev.target.id - ev.dataTransfer.getData('shipId');
         console.log(distance);
-
+      
         for(let shipId of shipCoordinatesText.split(",")) {
-            allFields[parseInt(shipId) + distance].removeAttribute('ondrop');
-            allFields[parseInt(shipId) + distance].removeAttribute('ondragover');
-
-            allFields[parseInt(shipId) + distance].setAttribute('class', shipClass);
-            allFields[parseInt(shipId) + distance].setAttribute('ondragstart', 'drag(event)');
-            allFields[parseInt(shipId) + distance].setAttribute('draggable', 'true');
-        }*/
-      }
+          allFields[parseInt(shipId) + distance].removeAttribute('ondrop');
+          allFields[parseInt(shipId) + distance].removeAttribute('ondragover');
+      
+          allFields[parseInt(shipId) + distance].setAttribute('class', shipClass);
+          allFields[parseInt(shipId) + distance].setAttribute('ondragstart', 'drag(event)');
+          allFields[parseInt(shipId) + distance].setAttribute('draggable', 'true');
+        }
+    }
     //BOARD FUNCTIONS - READY
     const board = (player:string) => {
         //array for iteration over rows and columns, defaultShips for default ships positions (those numbers are ids of fields)
@@ -243,7 +238,7 @@ export default function GameScreen() {
                         {array.map((rowEl)=>{
                             if(player === "player"){
                                 if(defaultShips.includes(iterator))
-                                    return <div className={ship} key={colEl+"_"+rowEl} id={""+iterator++} onDragStart={drag} draggable="true"></div>
+                                    return <div className={ship} key={colEl+"_"+rowEl} id={""+iterator++} onDragStart = {drag} draggable="true"></div>
                                 else
                                     return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onDrop = {drop} onDragOver={allowDrop}></div>
                             }
