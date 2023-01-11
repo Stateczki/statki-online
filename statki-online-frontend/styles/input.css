@@ -101,14 +101,14 @@ button[type=submit]:hover, button[type=button]:hover {
   width: 2.5rem;
   border: 1px solid white;
 }
-.field-miss {
+.miss {
     border-radius: 4px;
     background-color: rgb(165, 5, 5);
     text-align: center;
     width: 2.5rem;
     border: 1px solid white;
 }
-.field-hit {
+.hit {
     border-radius: 4px;
     background-color: rgb(5, 165, 5);
     text-align: center;

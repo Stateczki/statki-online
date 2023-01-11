@@ -1,5 +1,106 @@
 import {useState, useEffect} from 'react'
+
 export default function GameScreen() {
+    //GAME FUNCTIONS
+        let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
+        const [gameStarted, setGameStarted] = useState(false);
+        const [playersTurn, setPlayersTurn] = useState(false);
+        const [enemyFound, setEnemyFound] = useState(false);
+        const [userId, setUserId] = useState("default");    
+        const [playerUsername, setPlayerUsername] = useState("you");
+        const [enemyUsername, setEnemyUsername] = useState("opponent");
+        const [socket, setSocket] = useState(new WebSocket(socketUrl)); 
+    //WEB SOCKET STUFF
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/userInfo/')
+        .then(response => response.json())
+        .then(data => {
+            setPlayerUsername(data.username);
+            setUserId(data.id);
+        });
+
+        socket.onopen = () => {
+            socket.send(JSON.stringify({
+                'type': 'connect',
+                'clientId': userId,
+                'message': 'Connected'
+            }));
+        }
+
+        socket.onclose = () => {
+            console.log("Disconnected from server");
+            socket.send(JSON.stringify({
+                'type': 'disconnect',
+                'clientId': userId,
+                'message': 'Disconnected'
+            }));
+        }
+
+        socket.onerror = (e) => {
+            console.log("Error: ", e);
+        }
+    }, [socket]);
+    
+    socket.onmessage = (e) => {
+        let data = JSON.parse(e.data);
+        if(data.type == 'enemy'){
+            setEnemyFound(true);
+            setEnemyUsername(data.message);
+            return;
+        }
+        if(data.type == 'turn'){
+            setPlayersTurn(true);
+            return;
+        }
+        if(data.type == 'shot'){
+            enemyShot(data.id);
+            return;
+        }
+        if(data.type == 'win'){
+            alert("You win!");
+            return;
+        }
+        if(data.type == 'lose'){
+            alert("You lose!");
+            return;
+        }
+        if(data.type == 'disconnect'){
+            alert("Enemy disconnected, you win!");
+            return;
+        }
+    }
+
+    function sendBoard(){
+        if( !checkBoard(boardToArray())) return;
+        setGameStarted(true);
+        const board = boardToArray();
+        socket.send(JSON.stringify({
+            'type': 'board',
+            'clientId': userId,
+            'message': board
+        }));
+    }
+
+    function sendShot(ev:any){
+        let id = ev.target.id;
+        console.log(id);
+        socket.send(JSON.stringify({
+            'type': 'shot',
+            'clientId': userId,
+            'message': id
+        }));
+    }
+
+    function enemyShot(id:any){
+        let shot = document.getElementById(id);
+        if(shot == null) return;
+        if(shot.classList.contains('ship')){
+            shot.classList.add('hit');
+        } else {
+            shot.classList.add('miss');
+        }
+    }
+
     //CHECK IF ARRAY CORRECT - READY
     const checkBoard = (array:any) => {
         //check if ships are not joined on the corners
@@ -147,7 +248,7 @@ export default function GameScreen() {
                                     return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onDrop = {drop} onDragOver={allowDrop}></div>
                             }
                             else if (player === "enemy") {
-                                return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={""+iterator++} onClick={shootEnemyShip}></div>
+                                return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={""+iterator++} onClick={sendShot}></div>
                             }
                             
                         })}
@@ -159,49 +260,6 @@ export default function GameScreen() {
                 return <div className="field-h"></div>
             })}
             </>
-    }
-
-    function shootEnemyShip(ev:any){
-        //kinda ready? idk how sockets will work
-        if(playersTurn == false) return;
-        ev.target.removeAttribute('onclick');
-        setPlayersTurn(false);
-        let fieldId = ev.target.id;
-        let response = "field";
-        //send fieldId to server
-        /*Copilot napisał - "Nie wiem czy to jest potrzebne, ale w sumie niech zostanie"
-        socket.emit('shoot', fieldId);
-        socket.on('shoot', (fieldId) => {
-            setPlayersTurn(true);
-            //check if hit or miss
-            if(boardArray[parseInt(fieldId[0])-1][parseInt(fieldId[1])-1] == 1) {
-                ev.target.className = "ship-hit";
-                //check if ship is sunk
-                if(checkIfSunk(fieldId)) {
-                    //send ship sunk to server
-                    socket.emit('ship-sunk', fieldId);
-                    socket.on('ship-sunk', (fieldId) => {
-                        //check if game is over
-                        if(checkIfGameOver()) {
-                            //send game over to server
-                            socket.emit('game-over', fieldId);
-                            socket.on('game-over', (fieldId) => {
-                                alert("Game over!");
-                            });
-                        }
-                    });
-                }
-            } else {
-                ev.target.className = "field-miss";
-            }
-        });*/
-        if(response== "ship") {
-            ev.target.className = "ship-hit";
-            ev.target.removeAttribute('onclick');
-        } else if(response == "field") {
-            ev.target.className = "field-miss";
-            ev.target.removeAttribute('onclick');
-        }
     }
     
     function boardToArray() {
@@ -226,57 +284,32 @@ export default function GameScreen() {
             }
         return boardArray;
     }
-    function sendBoard(board:any) {
-        fetch('http://localhost:8000/game/id/boardSent', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(board)
-        }).then(response => response.json()).then(data => {
-            console.log(data);
-        });
-    }
-    function readCheckSend(){
-        let board = boardToArray();
-        if(checkBoard(board))
-            sendBoard(board);
-        else{
-            alert("Wrong board");
-            console.log(board);
-        }
-    }
-    //GAME FUNCTIONS
-    const [gameStarted, setGameStarted] = useState(false);
-    const [playersTurn, setPlayersTurn] = useState(true);
-    const [enemyFound, setEnemyFound] = useState(true);
-
-
+    
     //RENDER
     return (
         <div>
-            {!gameStarted && enemyFound &&
-            <header className="text-center m-1">
-                    <button className="action-button" onClick={readCheckSend} type="submit">Start</button>
-            </header>}
+            
+            <header className="text-center m-1 h-16">
+                {!gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
+            </header>
             <main id="boards">
                 <div>
-                    <p className="text-center text-2xl">Player</p>
+                    <p className="text-center text-2xl">{playerUsername}</p>
                     <div id="user-board">
                         {board("player")}  
                     </div>
                 </div>
                 <div>
-                    <p className="text-center text-2xl">Opponent</p>
+                    <p className="text-center text-2xl">{enemyUsername}</p>
                     <div id="computer-board">
                         {board("enemy")}  
                     </div>
                 </div>
             </main>
-            {!gameStarted && playersTurn &&
-            <footer className="text-center">
-                    <button className="action-button" type="submit" disabled>Your Turn</button>
-            </footer> }
+            
+            <footer className="text-center h-16">
+            { gameStarted && playersTurn && <button className="action-button" type="submit" disabled>Your Turn</button>}
+            </footer> 
             
         </div>
     )

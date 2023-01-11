@@ -35,9 +35,7 @@ urlpatterns = [
     path('ping/', game_views.ping),
     # path('game/', game_views.game, name='game'),
     path('game/allRooms/', game_views.roomsList, name='roomsList'),
-    # TO BE CHECKED
     path('game/<str:room_name>/', game_views.game, name='game'),
-    # MAKE THOSE 2 REDIRECT TO THE UPPER METHOD
     path('homepage/createRoom/', game_views.createRoom, name='createRoom'),
     path('homepage/joinRoom/', game_views.joinRoom, name='joinRoom'),
 

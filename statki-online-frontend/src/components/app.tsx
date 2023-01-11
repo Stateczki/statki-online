@@ -15,7 +15,7 @@ export default function App(){
             <Route path="/" element={<LoggingInterface/>} />
             <Route path="/register" element={<RegistrationInterface />} />                
             <Route path="/homepage/*" element={<Homepage />}/>   
-            <Route path="/game" element={<GameScreen/>} />             
+            <Route path="/game/*" element={<GameScreen/>} />             
         </Switch>
     </Router> 
     )

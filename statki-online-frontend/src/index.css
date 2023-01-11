@@ -815,6 +815,18 @@ select {
   height: 18rem;
 }
 
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
 .min-h-full {
   min-height: 100%;
 }
@@ -1169,7 +1181,7 @@ button[type=submit]:hover, button[type=button]:hover {
   border: 1px solid white;
 }
 
-.field-miss {
+.miss {
   border-radius: 4px;
   background-color: rgb(165, 5, 5);
   text-align: center;
@@ -1177,7 +1189,7 @@ button[type=submit]:hover, button[type=button]:hover {
   border: 1px solid white;
 }
 
-.field-hit {
+.hit {
   border-radius: 4px;
   background-color: rgb(5, 165, 5);
   text-align: center;
