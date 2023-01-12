@@ -7,67 +7,75 @@ import re
 
 
 class StatkiConsumer(AsyncJsonWebsocketConsumer):
+
     async def connect(self):
         self.url_route = self.scope['url_route']['kwargs']['room_name']
-        await self.accept()
-
-
         self.room_name = f'{self.url_route}'
-        await self.create_room()
+        print(self.room_name)
+        # self.create_room()
+        await self.accept()
         # await self.create_players(self.)
-        print("self.statki_room ", self.statki_room)
+        await self.players_count()
 
     @database_sync_to_async
     def create_room(self):
         print("create_room")
-        self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.url_route)
+        self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.room_name)
+        # print("self.statki_room ", self.statki_room)
+
 
     async def receive_json(self, content):
-        command = content.get("command", None)
+        # command = content.get("command", None)
         print("json jedzieeeeeee")
         print(content)
         # print("receive_json     ",command.get("username", None))
-        if command == "clicked":
-            dataid = content.get("dataset", None)
-            await self.channel_layer.group_send(
-                self.room_name,
-                {
-                    "type": "websocket_info",
-                    "dataid": dataid,
-                    "user": content.get("user", None),
-                    "datatry": content.get("dataid", None),
+        if content.get("type", None) == 'connect':
+            await self.create_players(content.get("clientId"))
 
-                }
-            )
-        if command == "joined" or command == "won":
-            info = content.get("info", None)
-            user = content.get("user", None)
-
-            await self.create_players(user)
-
-            self.user_left = content.get("user", None)
-            await self.channel_layer.group_send(
-                self.room_name,
-                {
-                    "type": "websocket_joined",
-                    "info": info,
-                    "user": user,
-                    "command": command,
-                    # 'bingoCount': content.get("bingoCount", 'none')
-
-                }
-            )
+        # if command == "clicked":
+        #     dataid = content.get("dataset", None)
+        #     await self.channel_layer.group_send(
+        #         self.room_name,
+        #         {
+        #             "type": "websocket_info",
+        #             "dataid": dataid,
+        #             "user": content.get("user", None),
+        #             "datatry": content.get("dataid", None),
+        #
+        #         }
+        #     )
+        # if command == "joined" or command == "won":
+        #     info = content.get("info", None)
+        #     user = content.get("user", None)
+        #
+        #     await self.create_players(user)
+        #
+        #     self.user_left = content.get("user", None)
+        #     await self.channel_layer.group_send(
+        #         self.room_name,
+        #         {
+        #             "type": "websocket_joined",
+        #             "info": info,
+        #             "user": user,
+        #             "command": command,
+        #             # 'bingoCount': content.get("bingoCount", 'none')
+        #
+        #         }
+        #     )
 
     @database_sync_to_async
     def create_players(self, name):
-        print("create_players")
-        TrackPlayer.objects.get_or_create(room=self.bingo_room, username=name)
+        print("create players")
+        self.all_players = TrackPlayer.objects.get_or_create\
+            (room_name=self.room_name, username=name)
+        # print(type(self.all_players))
 
     @database_sync_to_async
     def players_count(self):
         print("Managing Plejer Kant!")
-        self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
-        self.players_count_all = self.statki_room.trackplayer_set.all().count()
+        # self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
+        self.players_count_all = self.all_players.trackplayer_set.all().count()
+        print(self.players_count_all)
 
     async def websocket_info(self, event):
         print("websocket_info")

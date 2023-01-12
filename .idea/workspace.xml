@@ -8,8 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statki-online-frontend/src/components/gameScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/statki-online-frontend/src/components/gameScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +162,8 @@
       <workItem from="1672912051278" duration="8346000" />
       <workItem from="1673120430610" duration="7556000" />
       <workItem from="1673374839842" duration="12523000" />
-      <workItem from="1673454359097" duration="8749000" />
+      <workItem from="1673454359097" duration="9349000" />
+      <workItem from="1673476540478" duration="6328000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>

@@ -16,4 +16,9 @@ class StatkiRoom(models.Model):
 
 class TrackPlayer(models.Model):
     username = models.CharField(max_length=30)
-    room = models.ForeignKey(StatkiRoom, on_delete=models.CASCADE)
+    room_name = models.CharField(default='none',max_length=30)
+
+    # room = models.ForeignKey(StatkiRoom, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.username

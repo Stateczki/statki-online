@@ -19,7 +19,7 @@ export default function GameScreen() {
             setUserId(data.id);
             socket.send(JSON.stringify({
                 'type': 'connect',
-                'clientId': userId,
+                'clientId': data.username,
                 'message': 'User connected'
             }));
         });

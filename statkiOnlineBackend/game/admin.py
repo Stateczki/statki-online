@@ -13,3 +13,4 @@ class RoomAdmin(admin.ModelAdmin):
 
 
 admin.site.register(StatkiRoom)
+admin.site.register(TrackPlayer)
