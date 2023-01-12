@@ -3,9 +3,9 @@ import {useState, useEffect} from 'react'
 export default function GameScreen() {
     //GAME FUNCTIONS
         let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
-        const [gameStarted, setGameStarted] = useState(false);
-        const [playersTurn, setPlayersTurn] = useState(false);
-        const [enemyFound, setEnemyFound] = useState(false);
+        const [gameStarted, setGameStarted] = useState(true);
+        const [playersTurn, setPlayersTurn] = useState(true);
+        const [enemyFound, setEnemyFound] = useState(true);
         const [userId, setUserId] = useState("default");    
         const [playerUsername, setPlayerUsername] = useState("you");
         const [enemyUsername, setEnemyUsername] = useState("opponent");
@@ -18,29 +18,16 @@ export default function GameScreen() {
             setPlayerUsername(data.username);
             setUserId(data.id);
         });
-
-        socket.onopen = () => {
-            socket.send(JSON.stringify({
-                'type': 'connect',
-                'clientId': userId,
-                'message': 'Connected'
-            }));
-        }
-
-        socket.onclose = () => {
-            console.log("Disconnected from server");
-            socket.send(JSON.stringify({
-                'type': 'disconnect',
-                'clientId': userId,
-                'message': 'Disconnected'
-            }));
-        }
-
-        socket.onerror = (e) => {
-            console.log("Error: ", e);
-        }
-    }, [socket]);
+    }, []);
     
+    socket.onclose = () => {
+        console.log("Disconnected from server");
+        socket.send(JSON.stringify({
+            'type': 'disconnect',
+            'clientId': userId,
+            'message': 'Disconnected'
+        }));
+    }
     socket.onmessage = (e) => {
         let data = JSON.parse(e.data);
         if(data.type == 'enemy'){
@@ -71,7 +58,7 @@ export default function GameScreen() {
     }
 
     function sendBoard(){
-        if( !checkBoard(boardToArray())) return;
+        if( !checkBoard(boardToArray()) || gameStarted ) return;
         setGameStarted(true);
         const board = boardToArray();
         socket.send(JSON.stringify({
@@ -82,6 +69,7 @@ export default function GameScreen() {
     }
 
     function sendShot(ev:any){
+        if(!playersTurn) return;
         let id = ev.target.id;
         console.log(id);
         socket.send(JSON.stringify({
@@ -168,13 +156,16 @@ export default function GameScreen() {
     }
 
     //DRAG AND DROP FUNCTIONS - NOT READY
-    let allFields = document.getElementsByClassName('field');
+    
+    const [allFields, setAllFields] = useState<any>(document.getElementsByClassName('field'));
 
     const allowDrop = function allowDrop(ev:any) {
+        console.log("allowDrop");
         ev.preventDefault();
     }
 
     const drag = function drag(ev:any) {
+        console.log("drag");
         const shipClassName = ev.target.className;
         ev.dataTransfer.setData("className", shipClassName);
         ev.dataTransfer.setData('shipId', ev.target.id);
@@ -194,24 +185,29 @@ export default function GameScreen() {
         }
         ev.dataTransfer.setData('list', shipCoordinates);
     }
+    //drop ship on cursor
     const drop = function drop(ev:any) {
+        console.log("drop");
+        setAllFields(document.getElementsByClassName('field'));
         ev.preventDefault();
         const shipClass = ev.dataTransfer.getData("className");
       
         const shipCoordinatesText = ev.dataTransfer.getData('list');
         const distance = ev.target.id - ev.dataTransfer.getData('shipId');
         console.log(distance);
-      
+        
+        //change coordinates of the ship
         for(let shipId of shipCoordinatesText.split(",")) {
-          allFields[parseInt(shipId) + distance].removeAttribute('ondrop');
-          allFields[parseInt(shipId) + distance].removeAttribute('ondragover');
-      
-          allFields[parseInt(shipId) + distance].setAttribute('class', shipClass);
-          allFields[parseInt(shipId) + distance].setAttribute('ondragstart', 'drag(event)');
-          allFields[parseInt(shipId) + distance].setAttribute('draggable', 'true');
+            allFields[shipId + distance].removeAttribute('ondrop');
+            allFields[shipId + distance].removeAttribute('ondragover');
+
+            allFields[shipId + distance].setAttribute('class', shipClass);
+            allFields[shipId + distance].setAttribute('ondragstart', 'drag(event)');
+            allFields[shipId + distance].setAttribute('draggable', 'true');
         }
     }
     //BOARD FUNCTIONS - READY
+    
     const board = (player:string) => {
         //array for iteration over rows and columns, defaultShips for default ships positions (those numbers are ids of fields)
         let array = [1,2,3,4,5,6,7,8,9,10];
@@ -285,7 +281,7 @@ export default function GameScreen() {
         <div>
             
             <header className="text-center m-1 h-16">
-                {!gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
+                {gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
             </header>
             <main id="boards">
                 <div>
