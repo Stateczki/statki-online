@@ -1141,8 +1141,8 @@ button[type=submit]:hover, button[type=button]:hover {
 #user-board {
   margin: 50px;
   margin-top: 1rem;
-  width: 480px;
-  height: 480px;
+  width: 440px;
+  height: 440px;
   display: flex;
   flex-wrap: wrap;
   background-color: var(--background);
@@ -1151,8 +1151,8 @@ button[type=submit]:hover, button[type=button]:hover {
 #computer-board {
   margin: 50px;
   margin-top: 1rem;
-  width: 480px;
-  height: 480px;
+  width: 440px;
+  height: 440px;
   display: flex;
   flex-wrap: wrap;
 }
