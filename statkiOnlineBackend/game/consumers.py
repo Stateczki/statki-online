@@ -12,10 +12,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         self.url_route = self.scope['url_route']['kwargs']['room_name']
         self.room_name = f'{self.url_route}'
         print(self.room_name)
-        # self.create_room()
         await self.accept()
-        # await self.create_players(self.)
-        await self.players_count()
 
     @database_sync_to_async
     def create_room(self):
@@ -23,13 +20,11 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.room_name)
         # print("self.statki_room ", self.statki_room)
 
-
     async def receive_json(self, content):
-        # command = content.get("command", None)
         print("json jedzieeeeeee")
         print(content)
-        # print("receive_json     ",command.get("username", None))
         if content.get("type", None) == 'connect':
+            self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
 
         # if command == "clicked":
@@ -66,16 +61,15 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
     @database_sync_to_async
     def create_players(self, name):
         print("create players")
-        self.all_players = TrackPlayer.objects.get_or_create\
+        self.all_players = TrackPlayer.objects.get_or_create \
             (room_name=self.room_name, username=name)
-        # print(type(self.all_players))
 
     @database_sync_to_async
     def players_count(self):
-        print("Managing Plejer Kant!")
+        TrackPlayer.objects.filter(room_name=self.room_name).count()
         # self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
-        self.players_count_all = self.all_players.trackplayer_set.all().count()
-        print(self.players_count_all)
+        # self.players_count_all = self.all_players.trackplayer_set.all().count()
+        # print(self.players_count_all)
 
     async def websocket_info(self, event):
         print("websocket_info")
@@ -86,14 +80,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             'command': 'clicked',
 
         }))
-
-    # async def websocket_chat(self, event):
-    #     await self.send_json(({
-    #         'user': event["user"],
-    #         'chat': event["chat"],
-    #         'command': event["command"],
-    #
-    #     }))
 
     async def websocket_joined(self, event):
         print("cunt")
@@ -108,22 +94,27 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         }))
 
     async def disconnect(self, close_code):
-
+        print("disconnected")
+        await self.getUsersInRoom(self.room_name)
         await self.channel_layer.group_send(
             self.room_name,
             {
                 "type": "websocket_leave",
-                "info": f"{self.user_left} left room",
-
+                "info": "Someone left room",
             }
         )
-        await self.delete_player()
 
-        await self.channel_layer.group_discard(
-            self.room_name,
-            self.channel_name,
+    @database_sync_to_async
+    def getUsersInRoom(self, room_name):
+        return TrackPlayer.objects.filter(room_name=room_name)
 
-        )
+        # await self.delete_player()
+        #
+        # await self.channel_layer.group_discard(
+        #     self.room_name,
+        #     self.channel_name,
+        #
+        # )
 
     @database_sync_to_async
     def delete_player(self):
@@ -133,6 +124,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             self.statki_room.delete()
 
     async def websocket_leave(self, event):
+        print("websocket_leave")
         await self.players_count()
         await self.send_json(({
             'command': 'joined',
