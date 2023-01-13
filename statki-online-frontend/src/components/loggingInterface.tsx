@@ -61,28 +61,6 @@ export default function LoggingInterface() {
                 />
               </div>
             </div>
-
-            
-            {/* <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300  "
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm ">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium links ">
-                  Forgot your password?
-                </a>
-              </div>
-            </div> */}
-
             <div>
               <button
                 type="submit"

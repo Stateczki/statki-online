@@ -24,13 +24,6 @@ export default function GameScreen() {
             }));
         });
 
-        socket.onopen = () => {
-            socket.send(JSON.stringify({
-                'type': 'connecting',
-                'message': 'User is connecting...'
-            }));
-        }
-
         socket.onclose = () => {
             socket.send(JSON.stringify({
                 'type': 'disconnect',
@@ -55,8 +48,12 @@ export default function GameScreen() {
             setPlayersTurn(true);
             return;
         }
-        if(data.type == 'shot'){
+        if(data.type == 'enemyshot'){
             enemyShot(data.id);
+            return;
+        }
+        if(data.type == 'yourshot'){
+            yourShot(data.id);
             return;
         }
         if(data.type == 'win'){
@@ -133,24 +130,13 @@ export default function GameScreen() {
         //Delete old ship
         for(let shipId of shipCoordinatesText.split(",")) {
 
-            allFields![parseInt(shipId)].removeAttribute('onDragStart');
             allFields![parseInt(shipId)].removeAttribute('draggable');
-            allFields![parseInt(shipId)].removeAttribute('onClick');
-
             allFields![parseInt(shipId)].setAttribute('class', 'field');
-            allFields![parseInt(shipId)].setAttribute('onDrop', "drop(event)");
-            allFields![parseInt(shipId)].setAttribute('onDragOver', "allowDrop(event)");
         }
         //Insert new ship
         for(let shipId of shipCoordinatesText.split(",")) {
-
-            allFields![parseInt(shipId) + movementDistance].removeAttribute('onDrop');
-            allFields![parseInt(shipId) + movementDistance].removeAttribute('onDragOver');
-
             allFields![parseInt(shipId) + movementDistance].setAttribute('class', shipClassName);
-            allFields![parseInt(shipId) + movementDistance].setAttribute('onDragStart',"drag(event)");
             allFields![parseInt(shipId) + movementDistance].setAttribute('draggable', 'true');
-            allFields![parseInt(shipId) + movementDistance].setAttribute('onClick', "rotation(event)");
         }
     }
     function isItLegallMoveBoard(oldShipCoordinates:any, movementDistance:any) {
@@ -255,13 +241,9 @@ export default function GameScreen() {
         //erase old ship
         for(let i = 0; i < shipSize; i++) {
       
-          allFields![parseInt(shipCoordinates[i])].removeAttribute('ondragstart');
           allFields![parseInt(shipCoordinates[i])].removeAttribute('draggable');
-          allFields![parseInt(shipCoordinates[i])].removeAttribute('onclick');
       
           allFields![parseInt(shipCoordinates[i])].setAttribute('class', 'field');
-          allFields![parseInt(shipCoordinates[i])].setAttribute('ondrop', 'drop(event)');
-          allFields![parseInt(shipCoordinates[i])].setAttribute('ondragover', 'allowDrop(event)');
           }
       
         //Clicked ship is horizontal
@@ -269,28 +251,18 @@ export default function GameScreen() {
       
           for(let i = 0; i < shipSize; i++) {
       
-          allFields![pivotPointId + 11 * i].removeAttribute('ondrop');
-          allFields![pivotPointId + 11 * i].removeAttribute('ondragover');
       
           allFields![pivotPointId + 11 * i].setAttribute('class', shipClassName);
-          allFields![pivotPointId + 11 * i].setAttribute('ondragstart', 'drag(event)');
           allFields![pivotPointId + 11 * i].setAttribute('draggable', 'true');
-          allFields![pivotPointId + 11 * i].setAttribute('onclick', 'rotation(event)');
           }
         }
       
         //Cliked ship is vertical
         else {
       
-          for(let i = 0; i < shipSize; i++) {
-      
-            allFields![pivotPointId + i].removeAttribute('ondrop');
-            allFields![pivotPointId + i].removeAttribute('ondragover');
-        
+          for(let i = 0; i < shipSize; i++) {        
             allFields![pivotPointId + i].setAttribute('class', shipClassName);
-            allFields![pivotPointId + i].setAttribute('ondragstart', 'drag(event)');
             allFields![pivotPointId + i].setAttribute('draggable', 'true');
-            allFields![pivotPointId + i].setAttribute('onclick', 'rotation(event)');
           }
         }
       }
@@ -301,6 +273,7 @@ export default function GameScreen() {
         if(gameStarted ) return;
         setGameStarted(true);
         const board = boardToArray();
+        console.log(board);
         socket.send(JSON.stringify({
             'type': 'board',
             'clientId': userId,
@@ -320,6 +293,16 @@ export default function GameScreen() {
     }
 
     function enemyShot(id:any){
+        let shot = document.getElementById(id);
+        if(shot == null) return;
+        if(shot.classList.contains('ship')){
+            shot.classList.add('hit');
+        } else {
+            shot.classList.add('miss');
+        }
+    }
+
+    function yourShot(id:any){
         let shot = document.getElementById(id);
         if(shot == null) return;
         if(shot.classList.contains('ship')){
@@ -381,9 +364,9 @@ export default function GameScreen() {
                         {array.map((rowEl)=>{
                             if(player === "player"){
                                 if(defaultShips.includes(iterator))
-                                    return <div className={ship} key={colEl+"_"+rowEl} id={""+iterator++} onClick = {(event) => rotation(event)} onDragStart = {(event) => drag(event)} draggable="true"></div>
+                                    return <div className={ship} key={colEl+"_"+rowEl} id={""+iterator++} onClick = {(event) => rotation(event)} onDragStart = {(event) => drag(event)} onDrop = {(event) => drop(event)} onDragOver={(event) => allowDrop(event)} draggable="true"></div>
                                 else
-                                    return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onDrop = {(event) => drop(event)} onDragOver={(event) => allowDrop(event)}></div>
+                                    return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onClick = {(event) => rotation(event)} onDragStart = {(event) => drag(event)} onDrop = {(event) => drop(event)} onDragOver={(event) => allowDrop(event)}></div>
                             }
                             else if (player === "enemy") {
                                 return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={""+iterator++} onClick={sendShot}></div>
@@ -411,12 +394,12 @@ export default function GameScreen() {
             [0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0]
         ];
-        let iterator = 12;
-        for(let i = 1; i < 11; i++)
-            for(let j = 1; j < 11; j++){
+        let iterator = 0;
+        for(let i = 0; i < 11; i++)
+            for(let j = 0; j < 11; j++){
                 if(document.getElementById(""+iterator)!.classList.contains("ship"))
                     boardArray[i][j] = 1;
-                iterator++
+                iterator++;
             }
         return boardArray;
     }
@@ -449,3 +432,16 @@ export default function GameScreen() {
         </div>
     )
 }
+/*
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0], 
+[0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0], 
+[0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+*/
