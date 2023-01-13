@@ -771,10 +771,6 @@ select {
   margin-top: 2rem;
 }
 
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -785,6 +781,10 @@ select {
 
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .mb-20 {
@@ -811,10 +811,6 @@ select {
   height: 4rem;
 }
 
-.h-4 {
-  height: 1rem;
-}
-
 .h-72 {
   height: 18rem;
 }
@@ -825,10 +821,6 @@ select {
 
 .w-full {
   width: 100%;
-}
-
-.w-4 {
-  width: 1rem;
 }
 
 .w-36 {
@@ -874,10 +866,6 @@ select {
 
 .justify-center {
   justify-content: center;
-}
-
-.justify-between {
-  justify-content: space-between;
 }
 
 .justify-around {
@@ -1203,6 +1191,22 @@ button[type=submit]:hover, button[type=button]:hover {
   width: 2.5rem;
   background-color: rgb(226, 220, 220);
   border: 1px solid white;
+}
+
+.player-hit {
+  border: 4px solid red;
+}
+
+.player-miss {
+  border: 4px solid black;
+}
+
+.enemy-hit {
+  background-color: rgb(5, 165, 5);
+}
+
+.enemy-miss {
+  background-color: rgb(165, 5, 5);
 }
 
 .focus\:z-10:focus {

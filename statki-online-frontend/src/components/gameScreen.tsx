@@ -5,7 +5,7 @@ export default function GameScreen() {
     let shipsAlreadySet = false;
     const [gameStarted, setGameStarted] = useState(false);
     const [playersTurn, setPlayersTurn] = useState(true);
-    const [enemyFound, setEnemyFound] = useState(true);
+    const [enemyFound, setEnemyFound] = useState(false);
     const [userId, setUserId] = useState("default");    
     const [playerUsername, setPlayerUsername] = useState("you");
     const [enemyUsername, setEnemyUsername] = useState("opponent");
@@ -24,17 +24,6 @@ export default function GameScreen() {
             }));
         });
 
-        socket.onclose = () => {
-            socket.send(JSON.stringify({
-                'type': 'disconnect',
-                'clientId': userId,
-                'message': 'Disconnected'
-            }));
-        }
-
-        socket.onerror = (e) => {
-            console.log("Error: ", e);
-        }
     }, []);
     
     socket.onmessage = (e) => {
@@ -53,7 +42,7 @@ export default function GameScreen() {
             return;
         }
         if(data.type == 'yourshot'){
-            yourShot(data.id);
+            yourShot(data);
             return;
         }
         if(data.type == 'win'){
@@ -68,6 +57,19 @@ export default function GameScreen() {
             alert("Enemy disconnected, you win!");
             return;
         }
+    }
+
+
+    socket.onclose = () => {
+        socket.send(JSON.stringify({
+            'type': 'disconnect',
+            'clientId': userId,
+            'message': 'Disconnected'
+        }));
+    }
+
+    socket.onerror = (e) => {
+        console.log("Error: ", e);
     }
 
     
@@ -126,7 +128,6 @@ export default function GameScreen() {
         if(!isItLegallMoveOtherShips(shipCoordinatesText.split(","), movementDistance))
             return;
 
-        console.log(shipCoordinatesText);
         //Delete old ship
         for(let shipId of shipCoordinatesText.split(",")) {
 
@@ -195,6 +196,7 @@ export default function GameScreen() {
     }
       
     const rotation = (ev:any) => {
+        if(gameStarted) return;
         const shipClassName = ev.target.className;
         const shipCoordinates = [];
       
@@ -270,21 +272,23 @@ export default function GameScreen() {
 
     //MANAGING BOARD
     function sendBoard(){
-        if(gameStarted ) return;
+        if(gameStarted || !enemyFound) return;
         setGameStarted(true);
         const board = boardToArray();
-        console.log(board);
         socket.send(JSON.stringify({
             'type': 'board',
             'clientId': userId,
             'message': board
         }));
+        for(let element of allFields!) {
+            element.removeAttribute('draggable');
+        }
     }
 
     function sendShot(ev:any){
         if(!playersTurn) return;
+        if(ev.target.classList.match(/(hit|miss)/)) return;
         let id = ev.target.id;
-        console.log(id);
         socket.send(JSON.stringify({
             'type': 'shot',
             'clientId': userId,
@@ -296,19 +300,19 @@ export default function GameScreen() {
         let shot = document.getElementById(id);
         if(shot == null) return;
         if(shot.classList.contains('ship')){
-            shot.classList.add('hit');
+            shot.classList.add('player-hit');
         } else {
-            shot.classList.add('miss');
+            shot.classList.add('player-miss');
         }
     }
 
-    function yourShot(id:any){
-        let shot = document.getElementById(id);
+    function yourShot(data:any){
+        let shot = document.getElementById(data.id);
         if(shot == null) return;
-        if(shot.classList.contains('ship')){
-            shot.classList.add('hit');
+        if(data.type === 'hit'){
+            shot.classList.add('enemy-hit');
         } else {
-            shot.classList.add('miss');
+            shot.classList.add('enemy-miss');
         }
     }
 
@@ -432,16 +436,3 @@ export default function GameScreen() {
         </div>
     )
 }
-/*
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0], 
-[0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0], 
-[0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-*/
