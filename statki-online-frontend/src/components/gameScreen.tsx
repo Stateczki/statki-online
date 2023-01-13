@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 export default function GameScreen() {
     let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
     let shipsAlreadySet = false;
-    const [gameStarted, setGameStarted] = useState(true);
+    const [gameStarted, setGameStarted] = useState(false);
     const [playersTurn, setPlayersTurn] = useState(true);
     const [enemyFound, setEnemyFound] = useState(true);
     const [userId, setUserId] = useState("default");    
@@ -298,7 +298,7 @@ export default function GameScreen() {
 
     //MANAGING BOARD
     function sendBoard(){
-        if( !checkBoard(boardToArray()) || gameStarted ) return;
+        if(gameStarted ) return;
         setGameStarted(true);
         const board = boardToArray();
         socket.send(JSON.stringify({
@@ -329,7 +329,7 @@ export default function GameScreen() {
         }
     }
 
-    const checkBoard = (array:any) => {
+    /*const checkBoard = (array:any) => {
         //check if ships are not joined on the corners
         for(let i = 0; i < array.length-1; i++) {
             for(let j = 0; j < array.length-1; j++) {
@@ -344,16 +344,17 @@ export default function GameScreen() {
         // index 0 - all ships, index 1 - 1mast, index 2 - 2mast, index 3 - 3mast, index 4 - 4mast
         let shipsOnMap = [0,0,0,0,0];
         let visited = [
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0]
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0]
         ];
         for(let i = 0; i < array.length; i++) {
             for(let j = 0; j < array.length; j++) {
@@ -392,7 +393,7 @@ export default function GameScreen() {
             return false;
         }
         return true;
-    }
+    }*/
 
     function setShipSizes(){
         if(shipsAlreadySet) return;
@@ -464,21 +465,22 @@ export default function GameScreen() {
     
     function boardToArray() {
         let boardArray = [
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0]
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0]
         ];
-        let iterator = 1;
-        for(let i = 0; i < 10; i++)
-            for(let j = 0; j < 10; j++){
-                if(document.getElementById(""+iterator)!.className === "ship")
+        let iterator = 12;
+        for(let i = 1; i < 11; i++)
+            for(let j = 1; j < 11; j++){
+                if(document.getElementById(""+iterator)!.classList.contains("ship"))
                     boardArray[i][j] = 1;
                 iterator++
             }
@@ -489,7 +491,7 @@ export default function GameScreen() {
     return (
         <div>
             <header className="text-center m-1 h-16">
-                {gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
+                {!gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
             </header>
             <main id="boards">
                 <div>
