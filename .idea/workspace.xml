@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +162,8 @@
       <workItem from="1673531224376" duration="6878000" />
       <workItem from="1673556436891" duration="573000" />
       <workItem from="1673638728196" duration="7407000" />
-      <workItem from="1673646234360" duration="12165000" />
+      <workItem from="1673646234360" duration="12628000" />
+      <workItem from="1673693798599" duration="3477000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>

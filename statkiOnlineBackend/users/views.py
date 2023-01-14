@@ -34,11 +34,6 @@ def register_request(request):
     return render(request, 'index.html', {'form': form})
 
 
-# @login_required
-# def profile(request):
-#     pass
-
-
 def stats(LoginRequiredMixin):
     pass
 
