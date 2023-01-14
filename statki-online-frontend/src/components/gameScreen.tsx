@@ -111,10 +111,11 @@ export default function GameScreen() {
 
     const allowDrop = (ev:any) => {
         ev.preventDefault();
+        if(gameStarted) return;
     }
 
     const drag = (ev:any) => {
-        
+        if(gameStarted) return;
         const shipClassName = ev.target.className;
         ev.dataTransfer.setData("className", shipClassName);
         ev.dataTransfer.setData('shipId', ev.target.id);
@@ -129,6 +130,7 @@ export default function GameScreen() {
     }
     
     const drop = (ev:any) => {
+        if(gameStarted) return;
         ev.preventDefault();
 
         const shipClassName = ev.dataTransfer.getData("className");
