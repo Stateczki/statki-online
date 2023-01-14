@@ -1,12 +1,12 @@
-import LoggingInterface from './loggingInterface';
-import RegistrationInterface from './registrationInterface';
+import LoggingInterface from './login-and-registration/loggingInterface';
+import RegistrationInterface from './login-and-registration/registrationInterface';
 import GameScreen from './gameScreen';
 import {
   BrowserRouter as Router,
   Route,
   Routes as Switch,
 } from 'react-router-dom';
-import Homepage from './homepage';
+import Homepage from './homepage/homepage';
 
 export default function App(){
     return(
