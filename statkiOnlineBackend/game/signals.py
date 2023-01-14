@@ -26,6 +26,7 @@ def create_room_signal(sender, instance, created, *args, **kwargs):
 
 @receiver(post_delete, sender=StatkiRoom)
 def delete_room_signal(sender, instance, *args, **kwargs):
+    print("To cos tu dcsa")
     print(instance.room_name, 'was deleted')
     ins_roomm_name = instance.room_name
     ins_id = instance.id

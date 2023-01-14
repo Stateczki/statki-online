@@ -11,6 +11,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         self.url_route = self.scope['url_route']['kwargs']['room_name']
         self.room_name = f'{self.url_route}'
+        self.twoPlayer = False
+        self.enemyName = ''
         print(self.room_name)
         await self.accept()
         print("Liczba graczy w pokoju:  ")
@@ -29,6 +31,16 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         if content.get("type", None) == 'connect':
             self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
+            await self.sendInfoFullRoom()
+            while not self.twoPlayer:
+                pass
+            if self.twoPlayer:
+                await self.setEnemyName()
+                print("EnemyName    ", self.enemyName)
+                await self.send_json(({
+                    'type': 'enemy',
+                    'message': self.enemyName,
+                }))
 
         if content.get("type", None) == 'shot':
             await self.send_json(({
@@ -37,7 +49,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             }))
 
         if content.get("type", None) == 'board':
-            await self.send_json(({
+            await self.self.channel_layer.group_send(({
                 'user': self.userName,
                 'userShipsLocations': content.get("message", None),
             }))
@@ -78,6 +90,19 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         print("create players")
         self.all_players = TrackPlayer.objects.get_or_create \
             (room_name=self.room_name, username=name)
+        #     self.sendInfoFullRoom()
+
+    @sync_to_async
+    def sendInfoFullRoom(self):
+        if TrackPlayer.objects.filter(room_name=self.room_name).count() == 2:
+            self.twoPlayer = True
+
+    @sync_to_async
+    def setEnemyName(self):
+        for name in self.usersInRoom:
+            if str(name) != self.userName:
+                self.enemyName = str(name)
+
 
     @database_sync_to_async
     def players_count(self):
@@ -127,10 +152,11 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
     @database_sync_to_async
     def delete_player(self):
         print(self.usersInRoom)
-        # TrackPlayer.objects.get(room_name=self.room_name, username=self.userName).delete()
+        for usersInRoom in self.usersInRoom:
+            TrackPlayer.objects.get(room_name=self.room_name, username=usersInRoom).delete()
         # players_count = TrackPlayer.objects.filter(room_name=self.room_name).count()
         # if players_count == 0:
-        #     StatkiRoom.objects.get_or_create(room_name=self.room_name).delete()
+        #     StatkiRoom.objects.filter(room_name=self.room_name).delete()
 
     async def websocket_leave(self, event):
         print("websocket_leave")
