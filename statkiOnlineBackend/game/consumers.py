@@ -20,7 +20,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def create_room(self):
-        print("create_room")
         self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.room_name)
         # print("self.statki_room ", self.statki_room)
 
@@ -49,10 +48,15 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             }))
 
         if content.get("type", None) == 'board':
-            await self.self.channel_layer.group_send(({
-                'user': self.userName,
-                'userShipsLocations': content.get("message", None),
-            }))
+            if str(self.usersInRoom[0]) == self.userName:
+                print("Zaczyna gracz:   ",self.userName)
+                await self.send_json(({
+                    'type': 'turn'
+                }))
+            # await self.self.channel_layer.group_send(({
+            #     'user': self.userName,
+            #     'userShipsLocations': content.get("message", None),
+            # }))
 
         # if command == "clicked":
         #     dataid = content.get("dataset", None)

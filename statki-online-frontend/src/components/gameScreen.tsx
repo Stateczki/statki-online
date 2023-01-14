@@ -12,7 +12,7 @@ export default function GameScreen() {
     let shipsAlreadySet = false;
     const [gameStarted, setGameStarted] = useState(false);
     const [playersTurn, setPlayersTurn] = useState(true);
-    const [enemyFound, setEnemyFound] = useState(false);
+    const [enemyFound, setEnemyFound] = useState(true);
     const [userId, setUserId] = useState("default");    
     const [playerUsername, setPlayerUsername] = useState("you");
     const [enemyUsername, setEnemyUsername] = useState("opponent");
@@ -39,19 +39,23 @@ export default function GameScreen() {
     socket.onmessage = (e) => {
         let data = JSON.parse(e.data);
         if(data.type == 'enemy'){
+            console.log("Enemy found");
             setEnemyFound(true);
             setEnemyUsername(data.message);
             return;
         }
         if(data.type == 'turn'){
+            console.log("It's my turn");
             setPlayersTurn(true);
             return;
         }
         if(data.type == 'enemyshot'){
+            console.log("Enemy has shot");
             enemyShot(data.id);
             return;
         }
         if(data.type == 'yourshot'){
+            console.log("You have shot");
             yourShot(data);
             return;
         }
@@ -296,7 +300,7 @@ export default function GameScreen() {
             'message': board
         }));
         for(let element of allFields!) {
-            element.removeAttribute('draggable');
+            element.setAttribute('draggable', 'false');
         }
     }
 
@@ -383,6 +387,7 @@ export default function GameScreen() {
             <div className="field-h" id="9">I</div>
             <div className="field-h" id="10">J</div>
             {array.map((colEl) => {
+
                     return <>
                         <div className="field-h" key={"0_"+iterator} id={""+iterator++}>{colEl}</div>
                         {array.map((rowEl)=>{
@@ -399,7 +404,9 @@ export default function GameScreen() {
                         })}
                     </>
                 }
-            )}
+            )
+            }
+            {console.log("THE BOARD HAS BEEN RERENDERED")}
             {setShipSizes()}
             </>
     }
