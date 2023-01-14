@@ -31,9 +31,9 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         if content.get("type", None) == 'connect':
             self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
-            await self.sendInfoFullRoom()
             while not self.twoPlayer:
-                pass
+                await self.sendInfoFullRoom()
+
             if self.twoPlayer:
                 await self.setEnemyName()
                 print("EnemyName    ", self.enemyName)
