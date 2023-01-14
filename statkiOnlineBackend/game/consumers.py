@@ -49,7 +49,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
         if content.get("type", None) == 'board':
             if str(self.usersInRoom[0]) == self.userName:
-                print("Zaczyna gracz:   ",self.userName)
+                print("Zaczyna gracz:   ", self.userName)
                 await self.send_json(({
                     'type': 'turn'
                 }))
