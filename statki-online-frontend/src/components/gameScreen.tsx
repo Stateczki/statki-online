@@ -11,8 +11,8 @@ export default function GameScreen() {
     let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
     let shipsAlreadySet = false;
     const [gameStarted, setGameStarted] = useState(false);
-    const [playersTurn, setPlayersTurn] = useState(true);
-    const [enemyFound, setEnemyFound] = useState(true);
+    const [playersTurn, setPlayersTurn] = useState(false);
+    const [enemyFound, setEnemyFound] = useState(false);
     const [userId, setUserId] = useState("default");    
     const [playerUsername, setPlayerUsername] = useState("you");
     const [enemyUsername, setEnemyUsername] = useState("opponent");
@@ -308,7 +308,7 @@ export default function GameScreen() {
 
     function sendShot(ev:any){
         if(!playersTurn) return;
-        if(ev.target.classList.match(/(hit|miss)/)) return;
+        if(ev.target.classList.contains("enemy-hit") || ev.target.classList.contains("enemy-miss")) return;
         let id = ev.target.id;
         socket.send(JSON.stringify({
             'type': 'shot',
