@@ -1,6 +1,13 @@
 import {useState, useEffect} from 'react'
 
 export default function GameScreen() {
+    /*
+    *   This is the main component of the game. It contains all the logic of the game.
+    *   It is responsible for the game board, ships, drag and drop, web socket connection,
+    *   sending and receiving messages from the server.
+    *   It also contains the logic of the game, such as checking if the shot was successful,
+    *   checking if the ship was sunk, checking if the game is over, etc.
+    */
     let socketUrl = `ws://127.0.0.1:8000/ws/game/${window.location.pathname.split('/')[2]}/`;
     let shipsAlreadySet = false;
     const [gameStarted, setGameStarted] = useState(false);
@@ -10,7 +17,10 @@ export default function GameScreen() {
     const [playerUsername, setPlayerUsername] = useState("you");
     const [enemyUsername, setEnemyUsername] = useState("opponent");
     const [socket, setSocket] = useState(new WebSocket(socketUrl)); 
-    //WEB SOCKET STUFF AND FETCHING USER INFO
+    /* 
+    *  Fetching necessary data from the server, connecting web socket and operating on messages from the server.
+    *  socket.onmessage - operating on messages from the server, taking appropriate actions.
+    */
     useEffect(() => {
         fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
@@ -60,21 +70,21 @@ export default function GameScreen() {
     }
 
 
-    socket.onclose = () => {
-        socket.send(JSON.stringify({
-            'type': 'disconnect',
-            'clientId': userId,
-            'message': 'Disconnected'
-        }));
-    }
-
     socket.onerror = (e) => {
         console.log("Error: ", e);
     }
 
     
 
-    //DRAG AND DROP FUNCTIONS FOR SHIPS
+    /*
+    *   Those functions are responsible for ships management, drag and drop, checking if the move is legal.
+    *   isItLegallMoveBoard - checking if the ship is not out of the board.
+    *   isItLegallMoveOtherShips - checking if the ship is not on another ship.
+    *   drag - setting dataTransfer, which is used in drop function.
+    *   drop - deleting old ship and inserting new ship.
+    *   getShipSize - getting the size of the ship.
+    *   allowDrop - allowing drop.
+    */
     
     let allFields = document.querySelector('div#user-board')?.children;
 
@@ -270,7 +280,12 @@ export default function GameScreen() {
       }
     
 
-    //MANAGING BOARD
+    /**
+     * sendBoard() - send board to server
+     * sendShot() - send your shot to server
+     * enemyShot() - show enemy shot on your board
+     * yourShot() - show your shot on enemy board
+     */
     function sendBoard(){
         if(gameStarted || !enemyFound) return;
         setGameStarted(true);
@@ -316,6 +331,11 @@ export default function GameScreen() {
         }
     }
 
+    /*
+    *   setShipSizes() - sets the size of the ships on the board, adding classes to the fields
+    *   boardToArray() - converts the board to an array to be sent to the server
+    *   board() - creates the board, rednering html elements
+    */
     function setShipSizes(){
         if(shipsAlreadySet) return;
         document.getElementById("12")?.classList.add("large");
@@ -408,13 +428,15 @@ export default function GameScreen() {
         return boardArray;
     }
     
-    //RENDER
+    /*
+    *   Rendering html
+     */
     return (
         <div>
             <header className="text-center m-1 h-16">
                 {!gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
             </header>
-            <main id="boards">
+            <main id="boards" className='flex justify-evenly'>
                 <div>
                     <p className="text-center text-2xl">{playerUsername}</p>
                     <div id="user-board">

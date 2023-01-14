@@ -1,5 +1,7 @@
 export default function StatPage(){
-    //GAME STATS
+    /*
+    * Default user stats to be displayed if server does not provide any
+    */
     let games = 2100;
     let wins = 911;
     let loses = games - wins;
@@ -7,6 +9,9 @@ export default function StatPage(){
     let shots = 10000;
     let hits = 5900;
     let hitratio = hits/shots *100;
+    /**
+     * return html code
+     */
     return(
         <div className="text-xl text-center">
                 <h1 className="underline-offset-4"><u>Personal statistics:</u></h1>
