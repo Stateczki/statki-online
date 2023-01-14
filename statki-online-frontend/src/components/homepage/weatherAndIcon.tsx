@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 export default function WeatherAndIcon(){
-    //user parameters
+    /*
+    * default weather data if server does not provide any
+    */
     let temp:number = 22;
     let sky:string = "Sunny";
     let humidity:number = 80;
@@ -8,7 +10,9 @@ export default function WeatherAndIcon(){
     let atmosphericPressure = 1019;
     const [image, setImage] = useState("../profilowe.jpg");
 
-    //fetch section
+    /*
+    * get user info from server to be displayed
+    */
     fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
         .then(data => {
@@ -16,6 +20,9 @@ export default function WeatherAndIcon(){
         }).catch(error => {
             console.log(error);
         });
+    /**
+     * return html code
+     */
     return(
         <main className="flex justify-around m-20">
             <div>

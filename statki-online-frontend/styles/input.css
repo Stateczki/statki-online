@@ -1,7 +1,10 @@
+/* MAIN STYLESHEET FILE, TRY NOT TO ADD TOO MUCH   */ 
+/*             TAILWIND STYLESHEET                 */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*                   BASE SETUP                     */
 @font-face {
   font-family: 'minecraft';
   src: url(minecraft.otf);
@@ -57,6 +60,8 @@ button[type=submit]:hover, button[type=button]:hover {
   border-radius: 0.1rem;
   color: white;
 }
+
+/*             GAME BOARD STYLES                 */
 
 #boards {
   margin:auto;

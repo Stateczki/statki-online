@@ -5,7 +5,9 @@ export default function PlayButton(){
     const [rooms, setRooms] = useState([
         { id: 9999, room_name: "empty" }
     ]);
-    //GET ROOMS AND USER ID
+    /*
+     get user id and all rooms from server
+     */
     useEffect(() => {
         fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
@@ -20,7 +22,9 @@ export default function PlayButton(){
     }, []);
     
     
-    // OUTPUT ALL AVILABLE ROOMS
+    /**
+     * return html code
+     */
     return (
         <main className="flex justify-center">
             <div>

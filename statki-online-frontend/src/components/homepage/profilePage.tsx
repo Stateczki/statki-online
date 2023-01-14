@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 export default function ProfilePage(){
-    //ACCOUNT STATS
+    /*
+    * get user info from server to be displayed
+    */
     const [username, setUsername] = useState("default");
     const [email, setEmail] = useState("default");
     let playerId = 2137911420;
@@ -12,6 +14,9 @@ export default function ProfilePage(){
             setUsername(data.username);
             setEmail(data.email);
         });
+    /**
+     * return html code
+     */
     return(
         <div className="text-xl text-center grid justify-self-center">
             <h1 className="underline-offset-4"><u>Account details:</u></h1>

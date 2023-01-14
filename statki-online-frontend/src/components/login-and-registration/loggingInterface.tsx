@@ -1,22 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function LoggingInterface() {
-  const API_HOST = 'http://localhost:8000';
-  let _csrfToken: any = null;
-
-  async function getCsrfToken() {
-    if (_csrfToken === null) {
-      const response = await fetch(`${API_HOST}/csrf/`, { credentials: 'include' });
-      const data = await response.json();
-      _csrfToken = data.csrfToken;
-      console.log(_csrfToken)
-    }
-    return _csrfToken;
-  }
-  _csrfToken = getCsrfToken();
-  console.log(_csrfToken)
+  
   return (
-    
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8"> 
           <div>
@@ -30,7 +16,7 @@ export default function LoggingInterface() {
               </Link>
             </p>
           </div>
-          {_csrfToken !== "" && <form className="mt-8 space-y-6" action="login/" method="POST">
+          <form className="mt-8 space-y-6" action="login/" method="POST">
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="username" className="sr-only">
@@ -71,7 +57,7 @@ export default function LoggingInterface() {
                 Sign in
               </button>
             </div>
-          </form> }
+          </form>
         </div>
       </div>
   )

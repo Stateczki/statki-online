@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "run": "cd statki-online-frontend && npm run start-the-machine && cd .. && cd statkiOnlineBackend && python3 manage.py runserver",
+        "install-and-run": "cd statki-online-frontend && npm install && npm run start-the-machine && cd .. && cd statkiOnlineBackend && pip3 install -r requirements.txt && python3 manage.py runserver"
+    }
+}
