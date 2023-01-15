@@ -6,8 +6,8 @@ export default function ProfilePage(){
     */
     const [username, setUsername] = useState("default");
     const [email, setEmail] = useState("default");
-    let playerId = 2137911420;
-    let premium = "yes";
+    let playerId = 541245929;
+    let premium = "no";
     fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
         .then(data => {
@@ -24,7 +24,12 @@ export default function ProfilePage(){
                 <li>Username: {username} </li>
                 <li>Email: {email} </li>
                 <li>Player ID: {playerId} </li>
-                <li>Premium: {premium}% </li>
+                <li>Premium: {premium} </li>
+                <li className="mt-20">Change your profile picture:</li>
+                <form action="changeProfile/" method="POST" className="flex flex-col">
+                    <input type="file" name="file" id="file" required className="m-auto w-80 mt-2"></input>
+                    <button type="submit" className="p-2 m-auto mt-2" >Change</button>
+                </form>
             </ul>
         </div>
     )
