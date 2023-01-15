@@ -19,6 +19,21 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
+  }, 
+  "typedocOptions": {
+    "out": "./docs",
+    "entryPoints": [
+      "./styles/index.css",
+      "./src/components/gameScreen.tsx",
+      "./src/components/homepage/homepage.tsx",
+      "./src/components/homepage/playButton.tsx",
+      "./src/components/homepage/profilePage.tsx",
+      "./src/components/homepage/statPage.tsx",
+      "./src/components/homepage/topBar.tsx",
+      "./src/components/homepage/weatherAndIcon.tsx",
+      "./src/components/login-and-register/loggingInterface.tsx",
+      "./src/components/login-and-register/registrationInterface.tsx"
+    ]
   },
   "include": [
     "./src",

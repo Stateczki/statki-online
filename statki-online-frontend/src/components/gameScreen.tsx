@@ -416,24 +416,12 @@ export default function GameScreen() {
     }
     
     function boardToArray() {
-        let boardArray = [
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0,0]
-        ];
+        let boardArray:number[] = [];
         let iterator = 0;
         for(let i = 0; i < 11; i++)
             for(let j = 0; j < 11; j++){
                 if(document.getElementById(""+iterator)!.classList.contains("ship"))
-                    boardArray[i][j] = 1;
+                    boardArray.push(iterator);
                 iterator++;
             }
         return boardArray;
