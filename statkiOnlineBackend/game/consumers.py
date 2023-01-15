@@ -1,6 +1,7 @@
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 from asgiref.sync import async_to_sync, sync_to_async
+from channels.layers import get_channel_layer
 import json
 from .models import StatkiRoom, TrackPlayer
 import re
@@ -13,15 +14,9 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         self.room_name = f'{self.url_route}'
         self.twoPlayer = False
         self.enemyName = ''
-        print(self.room_name)
         await self.accept()
         print("Liczba graczy w pokoju:  ")
         await self.getUsersInRoom(self.room_name)
-
-    @database_sync_to_async
-    def create_room(self):
-        self.statki_room, _ = StatkiRoom.objects.get_or_create(room_name=self.room_name)
-        # print("self.statki_room ", self.statki_room)
 
     async def receive_json(self, content):
         print("json jedzieeeeeee")
@@ -30,6 +25,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         if content.get("type", None) == 'connect':
             self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
+            await self.channel_layer.group_add(self.room_name, self.channel_name)
             while not self.twoPlayer:
                 await self.sendInfoFullRoom()
 
@@ -42,10 +38,14 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                 }))
 
         if content.get("type", None) == 'shot':
-            await self.send_json(({
-                'user': self.userName,
-                'coordinate': content.get("message", None),
-            }))
+            print(self.userName)
+            await self.channel_layer.group_send(
+                self.room_name,
+                {
+                    "type": "statki_message",
+                    "message": self.userName,
+                },
+            )
 
         if content.get("type", None) == 'board':
             if str(self.usersInRoom[0]) == self.userName:
@@ -89,6 +89,12 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         #         }
         #     )
 
+    async def statki_message(self, event):
+        if str(self.userName) != str(event['message']):
+            await self.send_json(({
+                'type': 'turn'
+            }))
+
     @database_sync_to_async
     def create_players(self, name):
         print("create players")
@@ -106,7 +112,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         for name in self.usersInRoom:
             if str(name) != self.userName:
                 self.enemyName = str(name)
-
 
     @database_sync_to_async
     def players_count(self):

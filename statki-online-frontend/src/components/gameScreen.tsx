@@ -313,8 +313,10 @@ export default function GameScreen() {
         socket.send(JSON.stringify({
             'type': 'shot',
             'clientId': userId,
-            'message': id
+            'message': id,
+            'shooter': playerUsername
         }));
+        setPlayersTurn(false);
     }
 
     function enemyShot(id:any){
