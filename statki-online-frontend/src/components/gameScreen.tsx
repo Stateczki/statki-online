@@ -309,7 +309,7 @@ export default function GameScreen() {
     function sendShot(ev:any){
         if(!playersTurn) return;
         if(ev.target.classList.contains("enemy-hit") || ev.target.classList.contains("enemy-miss")) return;
-        let id = ev.target.id;
+        let id = ev.target.id.slice(1)
         socket.send(JSON.stringify({
             'type': 'shot',
             'clientId': userId,
@@ -330,7 +330,7 @@ export default function GameScreen() {
     }
 
     function yourShot(data:any){
-        let shot = document.getElementById(data.id);
+        let shot = document.getElementById(`e${data.id}`);
         if(shot == null) return;
         if(data.result === 'hit'){
             shot.classList.add('enemy-hit');
@@ -403,7 +403,7 @@ export default function GameScreen() {
                                     return <div className={field} key={colEl+"_"+rowEl} id={""+iterator++} onClick = {(event) => rotation(event)} onDragStart = {(event) => drag(event)} onDrop = {(event) => drop(event)} onDragOver={(event) => allowDrop(event)}></div>
                             }
                             else if (player === "enemy") {
-                                return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={""+iterator++} onClick={sendShot}></div>
+                                return <div className={field+"-enemy"} key={colEl+"_"+rowEl} id={"e"+iterator++} onClick={sendShot}></div>
                             }
                             
                         })}
