@@ -2,13 +2,13 @@ export default function StatPage(){
     /*
     * Default user stats to be displayed if server does not provide any
     */
-    let games = 2100;
-    let wins = 911;
+    let games = 12;
+    let wins = 5;
     let loses = games - wins;
-    let winrate = wins / games *100;
-    let shots = 10000;
-    let hits = 5900;
-    let hitratio = hits/shots *100;
+    let winrate = Math.floor(wins / games *100);
+    let shots = 70;
+    let hits = 34;
+    let hitratio = Math.floor(hits/shots *100);
     /**
      * return html code
      */

@@ -1,10 +1,15 @@
+import { useState } from "react";
 import {Link} from "react-router-dom";
 
 export default function TopBar () {
+    const [icon, setIcon] = useState("#");
+    fetch('http://127.0.0.1:8000/photos/')
+        .then(response => response.json())
+        .then(data => setIcon(data.icon));
     return (
         <nav>
             <div className="flex m-2">
-                <img src="#" className="mr-2"></img> 
+                <img src={icon} alt="Statek" className="mr-2"></img> 
                 <h1 className="text-2xl ml-2">Shipstorm</h1>
             </div>
             <div className="mb-20 flex flex-row items-stretch justify-around">

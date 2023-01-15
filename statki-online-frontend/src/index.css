@@ -761,6 +761,10 @@ select {
   margin: 5rem;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -791,6 +795,18 @@ select {
 
 .mb-12 {
   margin-bottom: 3rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .block {
@@ -837,6 +853,14 @@ select {
   width: 100%;
 }
 
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-80 {
+  width: 20rem;
+}
+
 .max-w-md {
   max-width: 28rem;
 }
@@ -852,6 +876,10 @@ select {
 
 .flex-row {
   flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .flex-wrap {

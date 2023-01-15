@@ -8,7 +8,7 @@ export default function WeatherAndIcon(){
     const[humidity, setHumidity] = useState(80);
     const[rainfall, setRainfall] = useState("None at all");
     const[atmosphericPressure, setAtmosphericPressure] = useState(1019);
-    const [image, setImage] = useState("../profilowe.jpg");
+    const [image, setImage] = useState("");
 
     /*
     * get user info from server to be displayed
