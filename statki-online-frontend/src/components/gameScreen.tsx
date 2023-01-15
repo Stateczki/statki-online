@@ -332,8 +332,9 @@ export default function GameScreen() {
     function yourShot(data:any){
         let shot = document.getElementById(data.id);
         if(shot == null) return;
-        if(data.type === 'hit'){
+        if(data.result === 'hit'){
             shot.classList.add('enemy-hit');
+            console.log("Trafiony")
         } else {
             shot.classList.add('enemy-miss');
         }

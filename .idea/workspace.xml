@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63b7828f-bccd-4408-afd0-3f6ec90218d5" name="Changes" comment="Yyyy chyba coś dziaa nie wiem czemu tyle zmian ale kij">
+      <change afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/gameLogic.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statki-online-frontend/src/components/gameScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/statki-online-frontend/src/components/gameScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
@@ -166,7 +167,8 @@
       <workItem from="1673693798599" duration="3477000" />
       <workItem from="1673699611669" duration="3240000" />
       <workItem from="1673734694932" duration="933000" />
-      <workItem from="1673735662894" duration="6281000" />
+      <workItem from="1673735662894" duration="6593000" />
+      <workItem from="1673774968678" duration="8159000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>

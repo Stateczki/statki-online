@@ -4,6 +4,7 @@ from asgiref.sync import async_to_sync, sync_to_async
 from channels.layers import get_channel_layer
 import json
 from .models import StatkiRoom, TrackPlayer
+from .gameLogic import *
 import re
 
 
@@ -26,6 +27,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
             await self.channel_layer.group_add(self.room_name, self.channel_name)
+
             while not self.twoPlayer:
                 await self.sendInfoFullRoom()
 
@@ -38,7 +40,17 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                 }))
 
         if content.get("type", None) == 'shot':
-            print(self.userName)
+            print(self.userName, "       szczał w ", content.get("message", None))
+
+            await self.channel_layer.group_send(
+                self.room_name,
+                {
+                    'type': 'didIHit',
+                    'user': self.userName,
+                    'message': str(content.get("message", None)),
+                },
+            )
+
             await self.channel_layer.group_send(
                 self.room_name,
                 {
@@ -48,15 +60,12 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             )
 
         if content.get("type", None) == 'board':
+            self.board = content.get("message")
             if str(self.usersInRoom[0]) == self.userName:
                 print("Zaczyna gracz:   ", self.userName)
                 await self.send_json(({
                     'type': 'turn'
                 }))
-            # await self.self.channel_layer.group_send(({
-            #     'user': self.userName,
-            #     'userShipsLocations': content.get("message", None),
-            # }))
 
         # if command == "clicked":
         #     dataid = content.get("dataset", None)
@@ -89,6 +98,30 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         #         }
         #     )
 
+    async def didIHit(self, event):
+        if str(self.userName) != str(event['user']):
+            result = accurate_shot(self.board, event['message'])
+            self.outcomeOfShot = result
+            await self.channel_layer.group_send(
+                self.room_name,
+                {
+                    'type': 'shot_feedback',
+                    'user': self.userName,
+                    'message': str(result),
+                    'hit_point': event['message']
+                },
+            )
+
+    async def shot_feedback(self, event):
+        shotMessages = ['miss', 'hit', 'hit', '\0']
+        if str(self.userName) != str(event['user']):
+            print(self.userName, "     ",event['message'])
+            await self.send_json(({
+                'type': 'yourshot',
+                'id': event['hit_point'],
+                'result': shotMessages[int(event['message'])],
+            }))
+
     async def statki_message(self, event):
         if str(self.userName) != str(event['message']):
             await self.send_json(({
@@ -97,10 +130,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
     @database_sync_to_async
     def create_players(self, name):
-        print("create players")
         self.all_players = TrackPlayer.objects.get_or_create \
             (room_name=self.room_name, username=name)
-        #     self.sendInfoFullRoom()
 
     @sync_to_async
     def sendInfoFullRoom(self):
