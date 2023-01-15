@@ -24,6 +24,7 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         print(content)
 
         if content.get("type", None) == 'connect':
+            self.sunkCount = 0
             self.userName = content.get("clientId")
             await self.create_players(content.get("clientId"))
             await self.channel_layer.group_add(self.room_name, self.channel_name)
@@ -51,13 +52,13 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                 },
             )
 
-            await self.channel_layer.group_send(
-                self.room_name,
-                {
-                    "type": "statki_message",
-                    "message": self.userName,
-                },
-            )
+            # await self.channel_layer.group_send(
+            #     self.room_name,
+            #     {
+            #         "type": "statki_message",
+            #         "message": self.userName,
+            #     },
+            # )
 
         if content.get("type", None) == 'board':
             self.board = content.get("message")
@@ -67,36 +68,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                     'type': 'turn'
                 }))
 
-        # if command == "clicked":
-        #     dataid = content.get("dataset", None)
-        #     await self.channel_layer.group_send(
-        #         self.room_name,
-        #         {
-        #             "type": "websocket_info",
-        #             "dataid": dataid,
-        #             "user": content.get("user", None),
-        #             "datatry": content.get("dataid", None),
-        #
-        #         }
-        #     )
-        # if command == "joined" or command == "won":
-        #     info = content.get("info", None)
-        #     user = content.get("user", None)
-        #
-        #     await self.create_players(user)
-        #
-        #     self.user_left = content.get("user", None)
-        #     await self.channel_layer.group_send(
-        #         self.room_name,
-        #         {
-        #             "type": "websocket_joined",
-        #             "info": info,
-        #             "user": user,
-        #             "command": command,
-        #             # 'bingoCount': content.get("bingoCount", 'none')
-        #
-        #         }
-        #     )
 
     async def didIHit(self, event):
         if str(self.userName) != str(event['user']):
@@ -115,11 +86,42 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
     async def shot_feedback(self, event):
         shotMessages = ['miss', 'hit', 'hit', '\0']
         if str(self.userName) != str(event['user']):
-            print(self.userName, "     ",event['message'])
+            print(self.userName, "     ", event['message'])
+            if int(event['message']) == 1:
+                self.sunkCount += 1
+                if self.sunkCount == 20:
+                    await self.send_json(({
+                        'type': 'win'
+                    }))
+                    await self.channel_layer.group_send(
+                        self.room_name,
+                        {
+                            "type": "message_looser",
+                            "message": self.userName,
+                        },
+                    )
+                await self.send_json(({
+                    'type': 'yourshot',
+                    'id': event['hit_point'],
+                    'result': shotMessages[int(event['message'])],
+                }))
+
+                await self.send_json(({
+                    'type': 'turn'
+                }))
+            else:
+                await self.channel_layer.group_send(
+                    self.room_name,
+                    {
+                        "type": "statki_message",
+                        "message": self.userName,
+                    },
+                )
+
+    async def message_looser(self, event):
+        if str(self.userName) != str(event['message']):
             await self.send_json(({
-                'type': 'yourshot',
-                'id': event['hit_point'],
-                'result': shotMessages[int(event['message'])],
+                'type': 'lose'
             }))
 
     async def statki_message(self, event):

@@ -5,10 +5,10 @@ export default function StatPage(){
     let games = 12;
     let wins = 5;
     let loses = games - wins;
-    let winrate = wins / games *100;
+    let winrate = Math.floor(wins / games *100);
     let shots = 70;
     let hits = 34;
-    let hitratio = hits/shots *100;
+    let hitratio = Math.floor(hits/shots *100);
     /**
      * return html code
      */
