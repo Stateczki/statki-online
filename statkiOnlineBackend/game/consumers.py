@@ -110,6 +110,11 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                     'type': 'turn'
                 }))
             else:
+                await self.send_json(({
+                    'type': 'yourshot',
+                    'id': event['hit_point'],
+                    'result': shotMessages[int(event['message'])],
+                }))
                 await self.channel_layer.group_send(
                     self.room_name,
                     {
