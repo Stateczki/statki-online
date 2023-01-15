@@ -3,11 +3,11 @@ export default function WeatherAndIcon(){
     /*
     * default weather data if server does not provide any
     */
-    let temp:number = 22;
-    let sky:string = "Sunny";
-    let humidity:number = 80;
-    let rainfall:string = "None at all";
-    let atmosphericPressure = 1019;
+    const[temp, setTemp] = useState(22);
+    const[sky, setSky] = useState("Sunny");
+    const[humidity, setHumidity] = useState(80);
+    const[rainfall, setRainfall] = useState("None at all");
+    const[atmosphericPressure, setAtmosphericPressure] = useState(1019);
     const [image, setImage] = useState("../profilowe.jpg");
 
     /*
@@ -16,7 +16,29 @@ export default function WeatherAndIcon(){
     fetch('http://127.0.0.1:8000/userInfo/')
         .then(response => response.json())
         .then(data => {
+                console.log("zdjecie");
                 setImage(data.image);
+        }).catch(error => {
+            console.log(error);
+        });
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=54.35&longitude=18.65&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,rain,surface_pressure,windspeed_10m,windspeed_80m,windspeed_120m,windspeed_180m,winddirection_10m,winddirection_80m,winddirection_120m,winddirection_180m&daily=rain_sum&timezone=Europe%2FBerlin")
+        .then(response => response.json())
+        .then(data => {
+            setTemp(data.hourly.temperature_2m[0]);
+            setHumidity(data.hourly.relativehumidity_2m[0]);
+            setRainfall(data.hourly.rain[0]);
+            setAtmosphericPressure(data.hourly.surface_pressure[0]);
+            if(data.hourly.rain[0] > 0){
+                setSky("Rainy");
+            }else if(data.hourly.windspeed_10m[0] > 10){
+                setSky("Windy");
+            }else if(data.hourly.temperature_2m[0] > 25){
+                setSky("Sunny");
+            }else if(data.hourly.temperature_2m[0] < 10){
+                setSky("Cold");
+            }else{
+                setSky("Cloudy");
+            }
         }).catch(error => {
             console.log(error);
         });

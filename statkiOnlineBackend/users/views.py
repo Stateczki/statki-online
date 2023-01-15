@@ -26,16 +26,15 @@ def register_request(request):
         if form.is_valid():
             form.save()
             messages.success(request, f'Your account has been created! You are now able to log in')
+            userName = form.cleaned_data.get('username')
+            eMail = form.cleaned_data.get('email')
+            Profile.objects.create(username=userName, email=eMail, image='profile_pics/R3.jpg')
             return redirect('login-form')
         else:
             messages.error(request, f'Somethings wrong and I can feel that')
     else:
         form = UserRegisterForm()
     return render(request, 'index.html', {'form': form})
-
-
-def stats(LoginRequiredMixin):
-    pass
 
 
 @csrf_exempt
