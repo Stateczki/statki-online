@@ -1231,6 +1231,11 @@ button[type=submit]:hover, button[type=button]:hover {
   background-color: rgb(165, 5, 5);
 }
 
+.sunk {
+  background-color: rgb(5, 165, 5);
+  border: 4px solid black;
+}
+
 .focus\:z-10:focus {
   z-index: 10;
 }

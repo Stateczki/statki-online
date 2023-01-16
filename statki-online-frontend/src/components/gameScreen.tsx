@@ -83,6 +83,14 @@ export default function GameScreen() {
             alert("Enemy disconnected, you win!");
             return;
         }
+        if(data.type === "ship_sunk"){
+            let statki = data.id;
+            for(let i in statki){
+                console.log(i)
+                let ship = document.getElementById("e"+statki[i]);
+                ship?.classList.add('sunk');
+            }
+        }
     }
 
 
