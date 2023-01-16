@@ -22,8 +22,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 # from game.views import ho
-# from django.views.generic import TemplateView
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', auth_views.LoginView.as_view(template_name='index.html'), name='login-form'),
@@ -31,13 +29,19 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='index.html'), name='logout'),
     path('register/', user_views.register_request, name='register'),
     path('homepage/', user_views.userHomepage, name='user-homepage'),
+    path('homepage/changeProfile/', user_views.change_profile, name='change-profile'),
+    path('homepage/photos/', user_views.photos, name='photos'),
     path('userInfo/', user_views.user_info, name='user-info'),
+    path('homepage/profile/', user_views.profile, name='profile'),
+    path('homepage/stats/', user_views.stats, name='stats'),
+
     path('ping/', game_views.ping),
     # path('game/', game_views.game, name='game'),
     path('game/allRooms/', game_views.roomsList, name='roomsList'),
     path('game/<str:room_name>/', game_views.game, name='game'),
     path('homepage/createRoom/', game_views.createRoom, name='createRoom'),
     path('homepage/joinRoom/', game_views.joinRoom, name='joinRoom'),
+
 
     # re_path(r'^api/profiles/$', user_views.user_info),
     # path('lobby', game_views.lobby.as_view(), name='lobby'),
@@ -46,6 +50,8 @@ urlpatterns = [
     # path('<str:username>/stats', game_views.stats.as_view(), name='user-stats')
     # path('logout/', auth_views.LogoutView.as_view(template_name='loggingInterface.tsx'), name='logout'),
 ]
+# from django.views.generic import TemplateView
+
 
 
 if settings.DEBUG:

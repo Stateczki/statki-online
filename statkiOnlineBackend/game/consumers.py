@@ -52,14 +52,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                 },
             )
 
-            # await self.channel_layer.group_send(
-            #     self.room_name,
-            #     {
-            #         "type": "statki_message",
-            #         "message": self.userName,
-            #     },
-            # )
-
         if content.get("type", None) == 'board':
             self.board = content.get("message")
             if str(self.usersInRoom[0]) == self.userName:
@@ -84,6 +76,11 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             )
 
     async def shot_feedback(self, event):
+        await self.send_json(({
+            'type': 'enemyshot',
+            'id': event['hit_point']
+        }))
+
         shotMessages = ['miss', 'hit', 'hit', '\0']
         if str(self.userName) != str(event['user']):
             print(self.userName, "     ", event['message'])
@@ -201,9 +198,9 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         print(self.usersInRoom)
         for usersInRoom in self.usersInRoom:
             TrackPlayer.objects.get(room_name=self.room_name, username=usersInRoom).delete()
-        # players_count = TrackPlayer.objects.filter(room_name=self.room_name).count()
-        # if players_count == 0:
-        #     StatkiRoom.objects.filter(room_name=self.room_name).delete()
+        players_count = TrackPlayer.objects.filter(room_name=self.room_name).count()
+        if players_count == 0:
+            StatkiRoom.objects.filter(room_name=self.room_name).delete()
 
     async def websocket_leave(self, event):
         print("websocket_leave")
@@ -213,7 +210,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             'info': event["info"],
             "users_count": self.players_count_all,
             "all_players": self.all_players_for_room
-
         }))
 
 

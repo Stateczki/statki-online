@@ -12,7 +12,7 @@ def accurate_shot(table, hit_point):
         return 0
 
 
-# Sprawdza czy strzał
+# Sprawdza czy strzał sąsiaduje ze statkiem
 def more_to_hit(table, hit_point):
     if (int(hit_point) + 1 in table and int(hit_point) // 11 == (int(hit_point) + 1) // 11) or \
             (int(hit_point) - 1 in table and int(hit_point) // 11 == (int(hit_point) - 1) // 11):

@@ -1,20 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-import json
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, LoginForm
+from .forms import UserRegisterForm
 from django.views.decorators.csrf import csrf_exempt
-from .forms import LoginForm
-from django.contrib.auth import authenticate, login, logout
+from .forms import LoginForm, ProfileUpdateForm
+from django.contrib.auth import authenticate, login
 from django.utils.safestring import mark_safe
-from django.core import serializers
 from django.http import JsonResponse
-from rest_framework.views import APIView
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, PhotoSerializer
 from .models import Profile
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework.renderers import JSONRenderer
 from django.shortcuts import get_object_or_404
 
@@ -77,4 +71,32 @@ def user_info(request):
     return JsonResponse(serializer.data, safe=False)
 
 
+@csrf_exempt
+@login_required
+def change_profile(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES,
+                                 instance=Profile.objects.get(username=request.user))
+        if form.is_valid():
+            print("Walid?")
+            form.save()
+            return redirect("user-homepage")
+    return redirect("profile")
 
+@csrf_exempt
+@login_required
+def photos(request):
+    user = get_object_or_404(Profile, username=request.user)
+    serializer = PhotoSerializer(user)
+    print(serializer.data)
+    return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+@login_required
+def stats(request):
+    return render(request, "index.html")
+@csrf_exempt
+@login_required
+def profile(request):
+    return render(request, "index.html")
