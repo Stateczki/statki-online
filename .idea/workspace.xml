@@ -8,8 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/statkiOnlineBackend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statkiOnlineBackend/game/gameLogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/statkiOnlineBackend/game/gameLogic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +174,8 @@
       <workItem from="1673774968678" duration="8159000" />
       <workItem from="1673803023303" duration="10384000" />
       <workItem from="1673818328869" duration="13515000" />
-      <workItem from="1673861718578" duration="3157000" />
+      <workItem from="1673861718578" duration="4140000" />
+      <workItem from="1673869491919" duration="7733000" />
     </task>
     <task id="LOCAL-00001" summary="It's django babyy">
       <created>1668298684363</created>

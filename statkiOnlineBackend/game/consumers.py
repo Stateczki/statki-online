@@ -54,6 +54,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
 
         if content.get("type", None) == 'board':
             self.board = content.get("message")
+            self.sendingBoard = create_list_of_ships(content.get("message").copy())
+            self.popingBoard = create_list_of_ships(content.get("message"))
             if str(self.usersInRoom[0]) == self.userName:
                 print("Zaczyna gracz:   ", self.userName)
                 await self.send_json(({
@@ -73,6 +75,28 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                     'hit_point': event['message']
                 },
             )
+            if result == 1:
+                index = 0
+                for ship in self.popingBoard:
+                    if int(event['message']) in ship:
+                        ship.remove(int(event['message']))
+                        if len(ship) == 0:
+                            await self.channel_layer.group_send(
+                                self.room_name,
+                                {
+                                    'type': 'send_info_ship_sunk',
+                                    'user': self.userName,
+                                    'message': self.sendingBoard[index]
+                                },
+                            )
+                    index += 1
+
+    async def send_info_ship_sunk(self, event):
+        if str(self.userName) != str(event['user']):
+            await self.send_json(({
+                'type': 'ship_sunk',
+                'id': event['message']
+            }))
 
     async def shot_feedback(self, event):
         if str(self.userName) == str(event['user']):
