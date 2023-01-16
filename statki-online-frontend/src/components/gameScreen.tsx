@@ -1,4 +1,7 @@
 import {useState, useEffect} from 'react'
+import * as reactRouterDom from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
+import Homepage from './homepage/homepage';
 
 export default function GameScreen() {
     /*
@@ -13,6 +16,7 @@ export default function GameScreen() {
     const [gameStarted, setGameStarted] = useState(false);
     const [playersTurn, setPlayersTurn] = useState(false);
     const [enemyFound, setEnemyFound] = useState(false);
+    const [gameIsOver, setGameIsOver] = useState(false);
     const [userId, setUserId] = useState("default");    
     const [playerUsername, setPlayerUsername] = useState("you");
     const [enemyUsername, setEnemyUsername] = useState("opponent");
@@ -61,10 +65,18 @@ export default function GameScreen() {
         }
         if(data.type == 'win'){
             alert("You win!");
+            setEnemyFound(false);
+            setGameStarted(false);
+            setPlayersTurn(false);
+            setGameIsOver(true);
             return;
         }
         if(data.type == 'lose'){
             alert("You lose!");
+            setEnemyFound(false);
+            setGameStarted(false);
+            setPlayersTurn(false);
+            setGameIsOver(true);
             return;
         }
         if(data.type == 'disconnect'){
@@ -433,6 +445,9 @@ export default function GameScreen() {
      */
     return (
         <div>
+            <Routes>
+                <Route path="/homepage" element={<Homepage/>} />
+            </Routes>
             <header className="text-center m-1 h-16">
                 {!gameStarted && enemyFound && <button className="action-button" onClick={sendBoard} type="submit">Start</button>}
             </header>
@@ -450,11 +465,14 @@ export default function GameScreen() {
                     </div>
                 </div>
             </main>
-            
             <footer className="text-center h-16">
             { gameStarted && playersTurn && <button className="action-button" type="submit" disabled>Your Turn</button>}
+            { gameStarted && !playersTurn && <button className="action-button" type="submit" disabled>Enemy Turn</button>}
+            { gameIsOver && 
+                <Link to='/homepage/'>
+                    <button className="action-button" type="submit">Leave room</button>
+                </Link>}
             </footer> 
-            
         </div>
     )
 }
