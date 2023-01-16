@@ -60,7 +60,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                     'type': 'turn'
                 }))
 
-
     async def didIHit(self, event):
         if str(self.userName) != str(event['user']):
             result = accurate_shot(self.board, event['message'])
@@ -76,10 +75,11 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
             )
 
     async def shot_feedback(self, event):
-        await self.send_json(({
-            'type': 'enemyshot',
-            'id': event['hit_point']
-        }))
+        if str(self.userName) == str(event['user']):
+            await self.send_json(({
+                'type': 'enemyshot',
+                'id': event['hit_point']
+            }))
 
         shotMessages = ['miss', 'hit', 'hit', '\0']
         if str(self.userName) != str(event['user']):
@@ -97,15 +97,16 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
                             "message": self.userName,
                         },
                     )
+                else:
+                    await self.send_json(({
+                        'type': 'turn'
+                    }))
                 await self.send_json(({
                     'type': 'yourshot',
                     'id': event['hit_point'],
                     'result': shotMessages[int(event['message'])],
                 }))
 
-                await self.send_json(({
-                    'type': 'turn'
-                }))
             else:
                 await self.send_json(({
                     'type': 'yourshot',
@@ -151,31 +152,6 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
     @database_sync_to_async
     def players_count(self):
         print(TrackPlayer.objects.filter(room_name=self.room_name).count())
-        # self.all_players_for_room = [x.username for x in self.statki_room.trackplayer_set.all()]
-        # self.players_count_all = self.all_players.trackplayer_set.all().count()
-        # print(self.players_count_all)
-
-    async def websocket_info(self, event):
-        print("websocket_info")
-        await self.send_json(({
-            'dataset': int(event["dataid"]),
-            'user': event["user"],
-            'dataid': int(event["datatry"]),
-            'command': 'clicked',
-
-        }))
-
-    async def websocket_joined(self, event):
-        print("cunt")
-        await self.players_count()
-        await self.send_json(({
-            'command': event["command"],
-            'info': event["info"],
-            'user': event["user"],
-            # 'bingoCount': event.get("bingoCount"),
-            "users_count": self.players_count_all,
-            "all_players": self.all_players_for_room
-        }))
 
     async def disconnect(self, close_code):
         print("disconnected")
@@ -202,49 +178,8 @@ class StatkiConsumer(AsyncJsonWebsocketConsumer):
         if players_count == 0:
             StatkiRoom.objects.filter(room_name=self.room_name).delete()
 
-    async def websocket_leave(self, event):
-        print("websocket_leave")
-        await self.players_count()
-        await self.send_json(({
-            'command': 'joined',
-            'info': event["info"],
-            "users_count": self.players_count_all,
-            "all_players": self.all_players_for_room
-        }))
-
 
 class OnlineRoomConsumer(AsyncJsonWebsocketConsumer):
-
-    async def connect(self, event):
-        print("asss")
-        await self.accept()
-        self.room_name = 'statki_room'
-        await self.channel_layer.group_add(
-            self.room_name,
-            self.channel_name
-        )
-        await self.online_room()
-
-        await self.channel_layer.group_send(
-            self.room_name,
-            {
-                "type": "websocket_rooms",
-                "online_rooms": self.online_rooms
-
-            }
-        )
-
-    @database_sync_to_async
-    def online_room(self):
-        self.online_rooms = [{"room_name": x.room_name, "room_id": f'{x.room_name}-{x.id}'} for x in
-                             StatkiRoom.objects.all()]
-
-    async def websocket_rooms(self, event):
-        await self.send_json(({
-            'command': 'online_rooms',
-            "online_rooms": self.online_rooms
-
-        }))
 
     async def websocket_room_added(self, event):
         await self.send_json(({
@@ -259,9 +194,3 @@ class OnlineRoomConsumer(AsyncJsonWebsocketConsumer):
             'room_name': event["room_name"],
             'room_id': event["room_id"],
         }))
-
-    async def receive_json(self, content, **kwargs):
-        return await super().receive_json(content, **kwargs)
-
-    async def disconnect(self, code):
-        return await super().disconnect(code)
