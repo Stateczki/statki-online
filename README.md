@@ -26,3 +26,15 @@ It runs the app provided everything is installed.
 #### 1. Clone the repository
 #### 2. Run `npm install-and-run` in the main directory
 #### 3. Open http://localhost:8000 to view it in the browser.
+
+
+## Licencses
+
+#### Typescript - Apache license 2.0
+#### Tailwind - MIT license
+#### React - MIT license
+#### Django - 3-clause BSD
+#### Django Channels - 3-clause BSD
+#### NPM - Artistic License 2.0
+#### Typedoc - Apache license 2.0
+#### SonarQube - Lesser GNU General Public License
