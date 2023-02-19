@@ -1,4 +1,5 @@
-export default function StatPage(){
+export default function StatPage(props:any){
+    const userInfo = props.userInfo;
     /*
     * Default user stats to be displayed if server does not provide any
     */

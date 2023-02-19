@@ -825,6 +825,10 @@ select {
   height: 18rem;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .min-h-full {
   min-height: 100%;
 }
@@ -847,6 +851,10 @@ select {
 
 .w-full {
   width: 100%;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .max-w-md {
