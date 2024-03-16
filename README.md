@@ -1,7 +1,8 @@
 # Shipstorm
 
 Shipstorm is a multiplayer online game based on the classic Battleship game.\
-The game is written in React and uses Django as a backend.
+The game is written in React and uses Django as a backend.\
+It is built to be played in real time, using websockets (Django Channels).
 
 ## Available Scripts
 
